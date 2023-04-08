@@ -25,16 +25,16 @@ const postgreSQL = postgres({
 // });
 
 // query Camans v1 mysql and populate exports folder
-// shell.exec(`sshpass -p 'jMAvu8SHzrq' ssh -t -t root@case.twc2.org.sg -p 56988 << EOF
-//   ./migration.sh
-//   exit
-// EOF`);
+shell.exec(`sshpass -p 'jMAvu8SHzrq' ssh -t -t root@case.twc2.org.sg -p 56988 << EOF
+  ./migration.sh
+  exit
+EOF`);
 
 // download exports folder from VPS to local machine
-// shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
-//   get -R exports .
-//   exit
-// EOF`);
+shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
+  get -R exports .
+  exit
+EOF`);
 
 // download attachments folder from VPS to local machine
 shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
@@ -558,6 +558,7 @@ const today = format(new Date(), 'yyyy-MMM-dd HH:mm');
 // go through each table and transfrom from v1 to v2 tables
 // user
 const users = [];
+const usersMap = {};
 parseFile('./exports/tbl_user.csv', {headers: true})
   .on('error', error => console.error(error))
   .on('data', row => {
@@ -568,14 +569,18 @@ parseFile('./exports/tbl_user.csv', {headers: true})
     user.date_last_updated = today;
     user.user_password = '123!@#';
     user.created_by = 0;
-    users.push(user);
+
+    if (!usersMap[user.user_email_address] && user.user_email_address !== 'alex.au@twc2.org.sg') {
+      usersMap[user.user_email_address] = true;
+      users.push(user);
+    }
   })
   .on('end', async (rowCount) => {
     // // insert migration user
-    // const user = await postgreSQL`INSERT into public.users (id, user_fullname, user_username, user_password, user_email_address, user_phone_number, user_role, user_status, date_record_created, date_last_updated) VALUES (0, 'migration user', 'migration_user', '123!@#', 'migration_user@twc2.org.sg', '62477001', 'Admin', 'Active', ${today}, ${today})`;
+    const user = await postgreSQL`INSERT into public.users (id, user_fullname, user_username, user_password, user_email_address, user_phone_number, user_role, user_status, date_record_created, date_last_updated) VALUES (0, 'migration user', 'migration_user', '123!@#', 'migration_user@twc2.org.sg', '62477001', 'Admin', 'Active', ${today}, ${today})`;
 
     // // insert all other users
-    // const columns = Object.keys(users[0]);
+    const columns = Object.keys(users[0]);
     
     // const user2 = await postgreSQL`INSERT INTO public.users ${postgreSQL(users, columns)}`;
     // console.log(`=== Inserted ${rowCount} users ===`);
