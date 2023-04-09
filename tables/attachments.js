@@ -2,8 +2,8 @@ import * as fs from 'fs'
 import { postgreSQL, today } from '../index.js'
 import { facepicAttachmentFileName, workerFINToId } from './worker.js'
 
-const ordinaryAttachmentsPath = `/home/supershazwi/Documents/camans/camans-server/files/ordinary-attachments`;
-const facepicAttachmentsPath = `/home/supershazwi/Documents/camans/camans-server/files/facepic-attachments`;
+const ordinaryAttachmentsPath = `/home/twc2/camans/server/files/ordinary-attachments`;
+const facepicAttachmentsPath = `/home/twc2/camans/server/files/facepic-attachments`;
 
 const importAttachments = async () => {
   // attachments
