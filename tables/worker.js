@@ -86,15 +86,13 @@ const importWorkers = () => {
     if (twidCounter[twidCounterKey] < 10) twidCounter[twidCounterKey] = `0${twidCounter[twidCounterKey]}`;
     
     worker.twid = `${twidCounterKey}${twidCounter[twidCounterKey]}`;
-    if (existingTwids.indexOf(worker.twid) === -1) {
-      workers.push(worker);
-      rowCounter++;
+    workers.push(worker);
+    rowCounter++;
 
-      if (rowCounter === 100) {
-        totalWorkers.push(workers);
-        workers = [];
-        rowCounter = 0;
-      }
+    if (rowCounter === 100) {
+      totalWorkers.push(workers);
+      workers = [];
+      rowCounter = 0;
     }
   })
   .on('end', async (rowCount) => {
