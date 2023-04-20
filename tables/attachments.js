@@ -23,8 +23,10 @@ const importAttachments = async () => {
   const directories = fs.readdirSync('workers');
   directories.forEach(directory => {
     const files = fs.readdirSync(`workers/${directory}`);
-    files.forEach( file => {
+    files.forEach(file => {
       const stats = fs.statSync(`workers/${directory}/${file}`);
+
+      file = file.replace(/ /g, '-');
 
       const attachment = {};
       attachment.date_record_created = today;
