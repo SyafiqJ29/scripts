@@ -7,41 +7,41 @@ import { format } from 'date-fns'
 import { importWorkers } from './tables/worker.js'
 
 // local instance
-const postgreSQL = postgres({
-  host: 'localhost',
-  port: '5432',
-  user: 'supershazwi',
-  password: 'noobies',
-  db: 'camans',
-});
-
-// test instance
 // const postgreSQL = postgres({
-//   host: '209.58.180.167',
+//   host: 'localhost',
 //   port: '5432',
 //   user: 'supershazwi',
 //   password: 'noobies',
 //   db: 'camans',
 // });
 
+// test instance
+const postgreSQL = postgres({
+  host: '209.58.180.167',
+  port: '5432',
+  user: 'supershazwi',
+  password: 'noobies',
+  db: 'camans',
+});
+
 // query Camans v1 mysql and populate exports folder
-// shell.exec(`sshpass -p 'jMAvu8SHzrq' ssh -t -t root@case.twc2.org.sg -p 56988 << EOF
-//   ./migration.sh
-//   exit
-// EOF`);
+shell.exec(`sshpass -p 'jMAvu8SHzrq' ssh -t -t root@case.twc2.org.sg -p 56988 << EOF
+  ./migration.sh
+  exit
+EOF`);
 
 // download exports folder from VPS to local machine
-// shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
-//   get -R exports .
-//   exit
-// EOF`);
+shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
+  get -R exports .
+  exit
+EOF`);
 
 // download attachments folder from VPS to local machine
-// shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
-//   cd /var/lib/tomcat7/webapps/ROOT
-//   get -R workers .
-//   exit
-// EOF`);
+shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
+  cd /var/lib/tomcat7/webapps/ROOT
+  get -R workers .
+  exit
+EOF`);
 
 const v1_v2_column_maps = {
   'tbl_accomodation': {
