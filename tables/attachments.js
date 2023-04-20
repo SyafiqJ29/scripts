@@ -26,7 +26,7 @@ const importAttachments = async () => {
     files.forEach(file => {
       const stats = fs.statSync(`workers/${directory}/${file}`);
 
-      replacedFile = file.replace(/ /g, '-');
+      let replacedFile = file.replace(/ /g, '-');
 
       const attachment = {};
       attachment.date_record_created = today;
