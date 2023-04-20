@@ -26,19 +26,19 @@ const importAttachments = async () => {
     files.forEach(file => {
       const stats = fs.statSync(`workers/${directory}/${file}`);
 
-      file = file.replace(/ /g, '-');
+      replacedFile = file.replace(/ /g, '-');
 
       const attachment = {};
       attachment.date_record_created = today;
       attachment.date_last_updated = today;
-      attachment.attachment_name = file;
-      attachment.filename = file;
+      attachment.attachment_name = replacedFile;
+      attachment.filename = replacedFile;
       attachment.worker_id = workerFINToId[directory];
       attachment.attachment_submitted_by = 0;
       attachment.file_size = stats.size;
 
-      if (facepicAttachmentFileName[file]) {
-        attachment.file_path = `${facepicAttachmentsPath}/${file}`;
+      if (facepicAttachmentFileName[replacedFile]) {
+        attachment.file_path = `${facepicAttachmentsPath}/${replacedFile}`;
         attachment.facepic_status = 'Current';
         attachment.id = facepicAttachmentIdCounter++;
 
@@ -53,7 +53,7 @@ const importAttachments = async () => {
           }
         }
       } else {
-        attachment.file_path = `${ordinaryAttachmentsPath}/${file}`;
+        attachment.file_path = `${ordinaryAttachmentsPath}/${replacedFile}`;
         attachment.id = ordinaryAttachmentIdCounter++;
 
         if (attachment.worker_id) {
