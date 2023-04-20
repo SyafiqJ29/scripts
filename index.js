@@ -39,7 +39,7 @@ const postgreSQL = postgres({
 // download attachments folder from VPS to local machine
 // shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
 //   cd /var/lib/tomcat7/webapps/ROOT
-//   get -R workers ./workers
+//   get -R workers .
 //   exit
 // EOF`);
 
@@ -558,6 +558,7 @@ const today = format(new Date(), 'yyyy-MMM-dd HH:mm');
 // go through each table and transfrom from v1 to v2 tables
 // user
 const users = [];
+const usersMap = {};
 parseFile('./exports/tbl_user.csv', {headers: true})
   .on('error', error => console.error(error))
   .on('data', row => {
@@ -568,7 +569,11 @@ parseFile('./exports/tbl_user.csv', {headers: true})
     user.date_last_updated = today;
     user.user_password = '123!@#';
     user.created_by = 0;
-    users.push(user);
+
+    if (!usersMap[user.user_email_address] && user.user_email_address !== 'alex.au@twc2.org.sg') {
+      usersMap[user.user_email_address] = true;
+      users.push(user);
+    }
   })
   .on('end', async (rowCount) => {
     // insert migration user

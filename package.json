@@ -11,9 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "canvas": "^2.11.2",
+    "csv-converter-to-pdf-and-html": "^1.0.2",
+    "csv-parser": "^3.0.0",
     "date-fns": "^2.29.3",
     "fast-csv": "^4.3.6",
     "mysql": "^2.18.1",
+    "pdf-lib": "^1.17.1",
     "postgres": "^3.3.4",
     "shelljs": "^0.8.5"
   }

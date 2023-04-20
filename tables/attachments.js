@@ -3,8 +3,8 @@ import { postgreSQL, today } from '../index.js'
 import { parseFile } from 'fast-csv'
 import { facepicAttachmentFileName, workerFINToId } from './worker.js'
 
-const ordinaryAttachmentsPath = `/home/supershazwi/Documents/camans/camans-server/files/ordinary-attachments`;
-const facepicAttachmentsPath = `/home/supershazwi/Documents/camans/camans-server/files/facepic-attachments`;
+const ordinaryAttachmentsPath = `/home/twc2/camans/server/files/ordinary-attachments`;
+const facepicAttachmentsPath = `/home/twc2/camans/server/files/facepic-attachments`;
 
 // attachments
 const facepicTotalAttachments = [];
@@ -424,4 +424,4 @@ const importCaseMilestoneNonCriminal = async () => {
   });
 };
 
-export {importAttachments, importOtherAttachments};
+export {importAttachments};
