@@ -37,11 +37,11 @@ const postgreSQL = postgres({
 // EOF`);
 
 // download attachments folder from VPS to local machine
-shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
-  cd /var/lib/tomcat7/webapps/ROOT
-  get -R workers ./workers
-  exit
-EOF`);
+// shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
+//   cd /var/lib/tomcat7/webapps/ROOT
+//   get -R workers ./workers
+//   exit
+// EOF`);
 
 const v1_v2_column_maps = {
   'tbl_accomodation': {
@@ -571,10 +571,10 @@ parseFile('./exports/tbl_user.csv', {headers: true})
     users.push(user);
   })
   .on('end', async (rowCount) => {
-    // // insert migration user
+    // insert migration user
     // const user = await postgreSQL`INSERT into public.users (id, user_fullname, user_username, user_password, user_email_address, user_phone_number, user_role, user_status, date_record_created, date_last_updated) VALUES (0, 'migration user', 'migration_user', '123!@#', 'migration_user@twc2.org.sg', '62477001', 'Admin', 'Active', ${today}, ${today})`;
 
-    // // insert all other users
+    // insert all other users
     // const columns = Object.keys(users[0]);
     
     // const user2 = await postgreSQL`INSERT INTO public.users ${postgreSQL(users, columns)}`;
