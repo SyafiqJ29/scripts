@@ -54,7 +54,7 @@ const postgreSQL = postgres({
 // EOF`);
 
 const v1_v2_column_maps = {
-  'tbl_accomodation': {
+  'tbl_accommodation': {
     'Entry_date': 'date_record_created',
     'Accomodation_provided': 'accommodation_provided',
     'Accomodation_provided_more': 'accommodation_provided_more',
