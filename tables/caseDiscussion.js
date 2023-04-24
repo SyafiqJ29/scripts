@@ -68,7 +68,7 @@ const importCaseDiscussions = () => {
     const columns = Object.keys(totalCaseDiscussions[0][0]);
 
     for (let i = 0; i < totalCaseDiscussions.length; i += 1) {
-      await postgreSQL`INSERT INTO public."caseDiscussion" ${postgreSQL(totalCaseDiscussions[i], columns)}`;
+      if (totalCaseDiscussions[i].length > 0) await postgreSQL`INSERT INTO public."caseDiscussion" ${postgreSQL(totalCaseDiscussions[i], columns)}`;
       console.log(`=== Inserted ${totalCaseDiscussions[i].length} caseDiscussions ===`);
     }
   });

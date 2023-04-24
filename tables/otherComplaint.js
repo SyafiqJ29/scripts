@@ -68,7 +68,7 @@ const importOtherComplaints = () => {
     const columns = Object.keys(totalOtherComplaints[0][0]);
 
     for (let i = 0; i < totalOtherComplaints.length; i += 1) {
-      await postgreSQL`INSERT INTO public."otherComplaint" ${postgreSQL(totalOtherComplaints[i], columns)}`;
+      if (totalOtherComplaints[i].length > 0) await postgreSQL`INSERT INTO public."otherComplaint" ${postgreSQL(totalOtherComplaints[i], columns)}`;
       console.log(`=== Inserted ${totalOtherComplaints[i].length} OtherComplaints ===`);
     }
   });

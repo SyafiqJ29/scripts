@@ -57,7 +57,7 @@ const importAgents = () => {
     const columns = Object.keys(totalAgents[0][0]);
 
     for (let i = 0; i < totalAgents.length; i += 1) {
-      await postgreSQL`INSERT INTO public."agent" ${postgreSQL(totalAgents[i], columns)}`;
+      if (totalAgents[i].length > 0)await postgreSQL`INSERT INTO public."agent" ${postgreSQL(totalAgents[i], columns)}`;
       console.log(`=== Inserted ${totalAgents[i].length} agents ===`);
     }
   });

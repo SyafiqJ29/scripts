@@ -60,7 +60,7 @@ const importPassports = () => {
     const columns = Object.keys(totalPassports[0][0]);
 
     for (let i = 0; i < totalPassports.length; i += 1) {
-      await postgreSQL`INSERT INTO public.passport ${postgreSQL(totalPassports[i], columns)}`;
+      if (totalPassports[i].length > 0) await postgreSQL`INSERT INTO public.passport ${postgreSQL(totalPassports[i], columns)}`;
       console.log(`=== Inserted ${totalPassports[i].length} passports ===`);
     }
   });

@@ -62,7 +62,7 @@ const importhomeCountryAddresses = () => {
     const columns = Object.keys(totalhomeCountryAddresses[0][0]);
 
     for (let i = 0; i < totalhomeCountryAddresses.length; i += 1) {
-      await postgreSQL`INSERT INTO public."homeCountryAddress" ${postgreSQL(totalhomeCountryAddresses[i], columns)}`;
+      if (totalhomeCountryAddresses[i].length > 0) await postgreSQL`INSERT INTO public."homeCountryAddress" ${postgreSQL(totalhomeCountryAddresses[i], columns)}`;
       console.log(`=== Inserted ${totalhomeCountryAddresses[i].length} homeCountryAddresses ===`);
     }
   });

@@ -76,7 +76,7 @@ const importMcStatuses = () => {
     const columns = Object.keys(totalMcStatuses[0][0]);
 
     for (let i = 0; i < totalMcStatuses.length; i += 1) {
-      await postgreSQL`INSERT INTO public."mcStatus" ${postgreSQL(totalMcStatuses[i], columns)}`;
+      if (totalMcStatuses[i].length > 0) await postgreSQL`INSERT INTO public."mcStatus" ${postgreSQL(totalMcStatuses[i], columns)}`;
       console.log(`=== Inserted ${totalMcStatuses[i].length} mcStatuses ===`);
     }
   });

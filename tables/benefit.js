@@ -82,8 +82,7 @@ const importBenefits = () => {
     const columns = Object.keys(totalBenefits[0][0]);
 
     for (let i = 0; i < totalBenefits.length; i += 1) {
-      console.log(totalBenefits[i]);
-      await postgreSQL`INSERT INTO public."benefit" ${postgreSQL(totalBenefits[i], columns)}`;
+      if (totalBenefits[i].length > 0) await postgreSQL`INSERT INTO public."benefit" ${postgreSQL(totalBenefits[i], columns)}`;
       console.log(`=== Inserted ${totalBenefits[i].length} benefits ===`);
     }
   });

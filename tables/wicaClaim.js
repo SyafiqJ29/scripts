@@ -109,7 +109,7 @@ const importWicaClaims = () => {
     const columns = Object.keys(totalWicaClaims[0][0]);
 
     for (let i = 0; i < totalWicaClaims.length; i += 1) {
-      await postgreSQL`INSERT INTO public."wicaClaim" ${postgreSQL(totalWicaClaims[i], columns)}`;
+      if (totalWicaClaims[i].length > 0) await postgreSQL`INSERT INTO public."wicaClaim" ${postgreSQL(totalWicaClaims[i], columns)}`;
       console.log(`=== Inserted ${totalWicaClaims[i].length} wicaClaims ===`);
     }
 
@@ -118,7 +118,7 @@ const importWicaClaims = () => {
     const insurerColumns = Object.keys(totalInsurers[0][0]);
 
     for (let i = 0; i < totalInsurers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."insurer" ${postgreSQL(totalInsurers[i], insurerColumns)}`;
+      if (totalInsurers[i].length > 0) await postgreSQL`INSERT INTO public."insurer" ${postgreSQL(totalInsurers[i], insurerColumns)}`;
       console.log(`=== Inserted ${totalInsurers[i].length} insurers ===`);
     }
   });

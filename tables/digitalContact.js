@@ -62,7 +62,7 @@ const importDigitalContacts = () => {
     const columns = Object.keys(totalDigitalContacts[0][0]);
 
     for (let i = 0; i < totalDigitalContacts.length; i += 1) {
-      await postgreSQL`INSERT INTO public."digitalContact" ${postgreSQL(totalDigitalContacts[i], columns)}`;
+      if (totalDigitalContacts[i].length > 0) await postgreSQL`INSERT INTO public."digitalContact" ${postgreSQL(totalDigitalContacts[i], columns)}`;
       console.log(`=== Inserted ${totalDigitalContacts[i].length} digitalContacts ===`);
     }
   });

@@ -65,7 +65,7 @@ const importIpaDetails = () => {
     const columns = Object.keys(totalIpaDetails[0][0]);
 
     for (let i = 0; i < totalIpaDetails.length; i += 1) {
-      await postgreSQL`INSERT INTO public."ipaDetails" ${postgreSQL(totalIpaDetails[i], columns)}`;
+      if (totalIpaDetails[i].length > 0) await postgreSQL`INSERT INTO public."ipaDetails" ${postgreSQL(totalIpaDetails[i], columns)}`;
       console.log(`=== Inserted ${totalIpaDetails[i].length} ipaDetails ===`);
     }
   });

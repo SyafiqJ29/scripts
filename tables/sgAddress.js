@@ -62,7 +62,7 @@ const importSgAddresss = () => {
     const columns = Object.keys(totalSgAddresss[0][0]);
 
     for (let i = 0; i < totalSgAddresss.length; i += 1) {
-      await postgreSQL`INSERT INTO public."sgAddress" ${postgreSQL(totalSgAddresss[i], columns)}`;
+      if (totalSgAddresss[i].length > 0) await postgreSQL`INSERT INTO public."sgAddress" ${postgreSQL(totalSgAddresss[i], columns)}`;
       console.log(`=== Inserted ${totalSgAddresss[i].length} sgAddresss ===`);
     }
   });

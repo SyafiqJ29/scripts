@@ -62,7 +62,7 @@ const importSgFriends = () => {
     const columns = Object.keys(totalSgFriends[0][0]);
 
     for (let i = 0; i < totalSgFriends.length; i += 1) {
-      await postgreSQL`INSERT INTO public."sgFriend" ${postgreSQL(totalSgFriends[i], columns)}`;
+      if (totalSgFriends[i].length > 0) await postgreSQL`INSERT INTO public."sgFriend" ${postgreSQL(totalSgFriends[i], columns)}`;
       console.log(`=== Inserted ${totalSgFriends[i].length} sgFriends ===`);
     }
   });

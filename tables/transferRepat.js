@@ -57,7 +57,7 @@ const importTransferRepats = () => {
     const columns = Object.keys(totalTransferRepats[0][0]);
 
     for (let i = 0; i < totalTransferRepats.length; i += 1) {
-      await postgreSQL`INSERT INTO public."transferRepat" ${postgreSQL(totalTransferRepats[i], columns)}`;
+      if (totalTransferRepats[i].length > 0) await postgreSQL`INSERT INTO public."transferRepat" ${postgreSQL(totalTransferRepats[i], columns)}`;
       console.log(`=== Inserted ${totalTransferRepats[i].length} transferRepats ===`);
     }
   });

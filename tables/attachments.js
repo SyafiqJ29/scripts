@@ -81,7 +81,7 @@ const importAttachments = async () => {
   const facepicAttachmentColumns = Object.keys(facepicTotalAttachments[0][0]);
 
   for (let i = 0; i < facepicTotalAttachments.length; i += 1) {
-    await postgreSQL`INSERT INTO public."facepicAttachment" ${postgreSQL(facepicTotalAttachments[i], facepicAttachmentColumns)}`;
+    if (facepicTotalAttachments[i].length > 0) await postgreSQL`INSERT INTO public."facepicAttachment" ${postgreSQL(facepicTotalAttachments[i], facepicAttachmentColumns)}`;
     console.log(`=== Inserted ${facepicTotalAttachments[i].length} facepicAttachments ===`);
 
     for (let k = 0; k < facepicTotalAttachments[i].length; k += 1) {
@@ -98,7 +98,7 @@ const importAttachments = async () => {
   const ordinaryAttachmentColumns = Object.keys(ordinaryTotalAttachments[0][0]);
 
   for (let i = 0; i < ordinaryTotalAttachments.length; i += 1) {
-    await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
+    if (ordinaryTotalAttachments[i].length > 0) await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
     console.log(`=== Inserted ${ordinaryTotalAttachments[i].length} ordinaryAttachments ===`);
   }
 
@@ -178,7 +178,7 @@ const importOtherAttachments = async () => {
     const ordinaryAttachmentColumns = Object.keys(ordinaryTotalAttachments[0][0]);
 
     for (let i = 0; i < ordinaryTotalAttachments.length; i += 1) {
-      await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
+      if (ordinaryTotalAttachments[i].length > 0) await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
       console.log(`=== Inserted ${ordinaryTotalAttachments[i].length} salaryClaimLodged ===`);
     }
 
@@ -259,7 +259,7 @@ const importNonWicaClaim = async () => {
     const ordinaryAttachmentColumns = Object.keys(ordinaryTotalAttachments[0][0]);
 
     for (let i = 0; i < ordinaryTotalAttachments.length; i += 1) {
-      await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
+      if (ordinaryTotalAttachments[i].length > 0) await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
       console.log(`=== Inserted ${ordinaryTotalAttachments[i].length} nonWicaClaim ===`);
     }
 
@@ -340,7 +340,7 @@ const importR2R = async () => {
     const ordinaryAttachmentColumns = Object.keys(ordinaryTotalAttachments[0][0]);
 
     for (let i = 0; i < ordinaryTotalAttachments.length; i += 1) {
-      await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
+      if (ordinaryTotalAttachments[i].length > 0) await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
       console.log(`=== Inserted ${ordinaryTotalAttachments[i].length} r2r ===`);
     }
 
@@ -421,7 +421,7 @@ const importCaseMilestoneNonCriminal = async () => {
     const ordinaryAttachmentColumns = Object.keys(ordinaryTotalAttachments[0][0]);
 
     for (let i = 0; i < ordinaryTotalAttachments.length; i += 1) {
-      await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
+      if (ordinaryTotalAttachments[i].length > 0) await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
       console.log(`=== Inserted ${ordinaryTotalAttachments[i].length} caseMilestoneNonCriminal ===`);
     }
   });

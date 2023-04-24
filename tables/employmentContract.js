@@ -65,7 +65,7 @@ const importEmploymentContracts = () => {
     const columns = Object.keys(totalEmploymentContracts[0][0]);
 
     for (let i = 0; i < totalEmploymentContracts.length; i += 1) {
-      await postgreSQL`INSERT INTO public."employmentContract" ${postgreSQL(totalEmploymentContracts[i], columns)}`;
+      if (totalEmploymentContracts[i].length > 0) await postgreSQL`INSERT INTO public."employmentContract" ${postgreSQL(totalEmploymentContracts[i], columns)}`;
       console.log(`=== Inserted ${totalEmploymentContracts[i].length} employmentContracts ===`);
     }
   });

@@ -62,7 +62,7 @@ const importBankAccounts = () => {
     const columns = Object.keys(totalBankAccounts[0][0]);
 
     for (let i = 0; i < totalBankAccounts.length; i += 1) {
-      await postgreSQL`INSERT INTO public."bankAccount" ${postgreSQL(totalBankAccounts[i], columns)}`;
+      if (totalBankAccounts[i].length > 0) await postgreSQL`INSERT INTO public."bankAccount" ${postgreSQL(totalBankAccounts[i], columns)}`;
       console.log(`=== Inserted ${totalBankAccounts[i].length} bankAccounts ===`);
     }
   });

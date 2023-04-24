@@ -65,7 +65,7 @@ const importCurrentPasses = () => {
     const columns = Object.keys(totalCurrentPasses[0][0]);
 
     for (let i = 0; i < totalCurrentPasses.length; i += 1) {
-      await postgreSQL`INSERT INTO public."currentPass" ${postgreSQL(totalCurrentPasses[i], columns)}`;
+      if (totalCurrentPasses[i].length > 0) await postgreSQL`INSERT INTO public."currentPass" ${postgreSQL(totalCurrentPasses[i], columns)}`;
       console.log(`=== Inserted ${totalCurrentPasses[i].length} currentPasses ===`);
     }
   });

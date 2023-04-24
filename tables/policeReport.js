@@ -68,7 +68,7 @@ const importPoliceReports = () => {
     const columns = Object.keys(totalPoliceReports[0][0]);
 
     for (let i = 0; i < totalPoliceReports.length; i += 1) {
-      await postgreSQL`INSERT INTO public."policeReport" ${postgreSQL(totalPoliceReports[i], columns)}`;
+      if (totalPoliceReports[i].length > 0) await postgreSQL`INSERT INTO public."policeReport" ${postgreSQL(totalPoliceReports[i], columns)}`;
       console.log(`=== Inserted ${totalPoliceReports[i].length} policeReports ===`);
     }
   });

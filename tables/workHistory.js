@@ -59,7 +59,7 @@ const importWorkHistorys = () => {
     const columns = Object.keys(totalWorkHistorys[0][0]);
 
     for (let i = 0; i < totalWorkHistorys.length; i += 1) {
-      await postgreSQL`INSERT INTO public."workHistory" ${postgreSQL(totalWorkHistorys[i], columns)}`;
+      if (totalWorkHistorys[i].length > 0) await postgreSQL`INSERT INTO public."workHistory" ${postgreSQL(totalWorkHistorys[i], columns)}`;
       console.log(`=== Inserted ${totalWorkHistorys[i].length} workHistorys ===`);
     }
   });

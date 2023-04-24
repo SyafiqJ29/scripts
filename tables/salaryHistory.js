@@ -61,7 +61,7 @@ const importSalaryHistorys = () => {
     const columns = Object.keys(totalSalaryHistorys[0][0]);
 
     for (let i = 0; i < totalSalaryHistorys.length; i += 1) {
-      await postgreSQL`INSERT INTO public."salaryHistory" ${postgreSQL(totalSalaryHistorys[i], columns)}`;
+      if (totalSalaryHistorys[i].length > 0) await postgreSQL`INSERT INTO public."salaryHistory" ${postgreSQL(totalSalaryHistorys[i], columns)}`;
       console.log(`=== Inserted ${totalSalaryHistorys[i].length} salaryHistorys ===`);
     }
   });

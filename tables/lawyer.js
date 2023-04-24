@@ -68,7 +68,7 @@ const importLawyers = () => {
     const columns = Object.keys(totalLawyers[0][0]);
 
     for (let i = 0; i < totalLawyers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."lawyer" ${postgreSQL(totalLawyers[i], columns)}`;
+      if (totalLawyers[i].length > 0) await postgreSQL`INSERT INTO public."lawyer" ${postgreSQL(totalLawyers[i], columns)}`;
       console.log(`=== Inserted ${totalLawyers[i].length} lawyers ===`);
     }
   });

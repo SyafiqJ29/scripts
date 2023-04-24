@@ -68,7 +68,7 @@ const importWicaStatuses = () => {
     const columns = Object.keys(totalWicaStatuses[0][0]);
 
     for (let i = 0; i < totalWicaStatuses.length; i += 1) {
-      await postgreSQL`INSERT INTO public."wicaStatus" ${postgreSQL(totalWicaStatuses[i], columns)}`;
+      if (totalWicaStatuses[i].length > 0) await postgreSQL`INSERT INTO public."wicaStatus" ${postgreSQL(totalWicaStatuses[i], columns)}`;
       console.log(`=== Inserted ${totalWicaStatuses[i].length} wicaStatuses ===`);
     }
   });

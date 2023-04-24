@@ -54,7 +54,7 @@ const importLanguages = () => {
     const columns = Object.keys(totalLanguages[0][0]);
 
     for (let i = 0; i < totalLanguages.length; i += 1) {
-      await postgreSQL`INSERT INTO public."language" ${postgreSQL(totalLanguages[i], columns)}`;
+      if (totalLanguages[i].length > 0) await postgreSQL`INSERT INTO public."language" ${postgreSQL(totalLanguages[i], columns)}`;
       console.log(`=== Inserted ${totalLanguages[i].length} languages ===`);
     }
   });

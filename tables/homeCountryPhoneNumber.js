@@ -62,7 +62,7 @@ const importHomeCountryPhoneNumbers = () => {
     const columns = Object.keys(totalHomeCountryPhoneNumbers[0][0]);
 
     for (let i = 0; i < totalHomeCountryPhoneNumbers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."homeCountryPhoneNumber" ${postgreSQL(totalHomeCountryPhoneNumbers[i], columns)}`;
+      if (totalHomeCountryPhoneNumbers[i].length > 0) await postgreSQL`INSERT INTO public."homeCountryPhoneNumber" ${postgreSQL(totalHomeCountryPhoneNumbers[i], columns)}`;
       console.log(`=== Inserted ${totalHomeCountryPhoneNumbers[i].length} homeCountryPhoneNumbers ===`);
     }
   });

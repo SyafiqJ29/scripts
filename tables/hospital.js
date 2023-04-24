@@ -68,7 +68,7 @@ const importHospitals = () => {
     const columns = Object.keys(totalHospitals[0][0]);
 
     for (let i = 0; i < totalHospitals.length; i += 1) {
-      await postgreSQL`INSERT INTO public."hospital" ${postgreSQL(totalHospitals[i], columns)}`;
+      if (totalHospitals[i].length > 0) await postgreSQL`INSERT INTO public."hospital" ${postgreSQL(totalHospitals[i], columns)}`;
       console.log(`=== Inserted ${totalHospitals[i].length} hospitals ===`);
     }
   });

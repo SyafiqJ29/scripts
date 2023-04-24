@@ -62,7 +62,7 @@ const importNextOfKins = () => {
     const columns = Object.keys(totalNextOfKins[0][0]);
 
     for (let i = 0; i < totalNextOfKins.length; i += 1) {
-      await postgreSQL`INSERT INTO public."nextOfKin" ${postgreSQL(totalNextOfKins[i], columns)}`;
+      if (totalNextOfKins[i].length > 0) await postgreSQL`INSERT INTO public."nextOfKin" ${postgreSQL(totalNextOfKins[i], columns)}`;
       console.log(`=== Inserted ${totalNextOfKins[i].length} nextOfKins ===`);
     }
   });

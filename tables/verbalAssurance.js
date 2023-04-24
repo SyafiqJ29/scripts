@@ -57,7 +57,7 @@ const importVerbalAssurances = () => {
     const columns = Object.keys(totalVerbalAssurances[0][0]);
 
     for (let i = 0; i < totalVerbalAssurances.length; i += 1) {
-      await postgreSQL`INSERT INTO public."verbalAssurances" ${postgreSQL(totalVerbalAssurances[i], columns)}`;
+      if (totalVerbalAssurances[i].length > 0) await postgreSQL`INSERT INTO public."verbalAssurances" ${postgreSQL(totalVerbalAssurances[i], columns)}`;
       console.log(`=== Inserted ${totalVerbalAssurances[i].length} verbalAssurances ===`);
     }
   });

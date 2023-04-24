@@ -76,7 +76,7 @@ const importLeadCaseWorkers = () => {
     const columns = Object.keys(totalLeadCaseWorkers[0][0]);
 
     for (let i = 0; i < totalLeadCaseWorkers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."leadCaseWorker" ${postgreSQL(totalLeadCaseWorkers[i], columns)}`;
+      if (totalLeadCaseWorkers[i].length > 0) await postgreSQL`INSERT INTO public."leadCaseWorker" ${postgreSQL(totalLeadCaseWorkers[i], columns)}`;
       console.log(`=== Inserted ${totalLeadCaseWorkers[i].length} leadCaseWorkers ===`);
     }
   });

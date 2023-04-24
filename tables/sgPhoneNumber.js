@@ -62,7 +62,7 @@ const importSgPhoneNumbers = () => {
     const columns = Object.keys(totalSgPhoneNumbers[0][0]);
 
     for (let i = 0; i < totalSgPhoneNumbers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."sgPhoneNumber" ${postgreSQL(totalSgPhoneNumbers[i], columns)}`;
+      if (totalSgPhoneNumbers[i].length > 0) await postgreSQL`INSERT INTO public."sgPhoneNumber" ${postgreSQL(totalSgPhoneNumbers[i], columns)}`;
       console.log(`=== Inserted ${totalSgPhoneNumbers[i].length} sgPhoneNumbers ===`);
     }
   });

@@ -68,7 +68,7 @@ const importCriminalCaseMilestones = () => {
     const columns = Object.keys(totalCriminalCaseMilestones[0][0]);
 
     for (let i = 0; i < totalCriminalCaseMilestones.length; i += 1) {
-      await postgreSQL`INSERT INTO public."criminalCaseMilestone" ${postgreSQL(totalCriminalCaseMilestones[i], columns)}`;
+      if (totalCriminalCaseMilestones[i].length > 0) await postgreSQL`INSERT INTO public."criminalCaseMilestone" ${postgreSQL(totalCriminalCaseMilestones[i], columns)}`;
       console.log(`=== Inserted ${totalCriminalCaseMilestones[i].length} criminalCaseMilestones ===`);
     }
   });

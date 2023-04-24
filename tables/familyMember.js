@@ -62,7 +62,7 @@ const importFamilyMembers = () => {
     const columns = Object.keys(totalFamilyMembers[0][0]);
 
     for (let i = 0; i < totalFamilyMembers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."familyMember" ${postgreSQL(totalFamilyMembers[i], columns)}`;
+      if (totalFamilyMembers[i].length > 0) await postgreSQL`INSERT INTO public."familyMember" ${postgreSQL(totalFamilyMembers[i], columns)}`;
       console.log(`=== Inserted ${totalFamilyMembers[i].length} familyMembers ===`);
     }
   });

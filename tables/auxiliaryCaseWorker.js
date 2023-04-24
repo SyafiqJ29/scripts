@@ -76,7 +76,7 @@ const importAuxiliaryCaseWorkers = () => {
     const columns = Object.keys(totalAuxiliaryCaseWorkers[0][0]);
 
     for (let i = 0; i < totalAuxiliaryCaseWorkers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."auxiliaryCaseWorker" ${postgreSQL(totalAuxiliaryCaseWorkers[i], columns)}`;
+      if (totalAuxiliaryCaseWorkers[i].length > 0) await postgreSQL`INSERT INTO public."auxiliaryCaseWorker" ${postgreSQL(totalAuxiliaryCaseWorkers[i], columns)}`;
       console.log(`=== Inserted ${totalAuxiliaryCaseWorkers[i].length} auxiliaryCaseWorkers ===`);
     }
   });

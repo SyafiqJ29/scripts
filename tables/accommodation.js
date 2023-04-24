@@ -57,7 +57,7 @@ const importAccommodations = () => {
     const columns = Object.keys(totalAccommodations[0][0]);
 
     for (let i = 0; i < totalAccommodations.length; i += 1) {
-      await postgreSQL`INSERT INTO public."accommodation" ${postgreSQL(totalAccommodations[i], columns)}`;
+      if (totalAccommodations[i].length > 0) await postgreSQL`INSERT INTO public."accommodation" ${postgreSQL(totalAccommodations[i], columns)}`;
       console.log(`=== Inserted ${totalAccommodations[i].length} accommodations ===`);
     }
   });
