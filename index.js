@@ -34,24 +34,24 @@ const postgreSQL = postgres({
 });
 
 
-// query Camans v1 mysql and populate exports folder
-shell.exec(`sshpass -p 'jMAvu8SHzrq' ssh -t -t root@case.twc2.org.sg -p 56988 << EOF
-  ./migration.sh
-  exit
-EOF`);
+// // query Camans v1 mysql and populate exports folder
+// shell.exec(`sshpass -p 'jMAvu8SHzrq' ssh -t -t root@case.twc2.org.sg -p 56988 << EOF
+//   ./migration.sh
+//   exit
+// EOF`);
 
-// download exports folder from VPS to local machine
-shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
-  get -R exports .
-  exit
-EOF`);
+// // download exports folder from VPS to local machine
+// shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
+//   get -R exports .
+//   exit
+// EOF`);
 
-// download attachments folder from VPS to local machine
-shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
-  cd /var/lib/tomcat7/webapps/ROOT
-  get -R workers .
-  exit
-EOF`);
+// // download attachments folder from VPS to local machine
+// shell.exec(`sshpass -p 'jMAvu8SHzrq' sftp -oPort=56988 root@case.twc2.org.sg << EOF
+//   cd /var/lib/tomcat7/webapps/ROOT
+//   get -R workers .
+//   exit
+// EOF`);
 
 const v1_v2_column_maps = {
   'tbl_accomodation': {

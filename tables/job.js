@@ -105,7 +105,7 @@ const importJobs = () => {
     importEmployers();
     importWorkplaces();
     importWorkHistorys();
-    // importAccommodations();
+    importAccommodations();
     importTransferRepats();
     importProblems();
   });
