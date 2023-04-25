@@ -38,7 +38,7 @@ const importAttachments = async () => {
       attachment.attachment_submitted_by = 0;
       attachment.file_size = stats.size;
 
-      if (facepicAttachmentFileName[replacedFile]) {
+      if (facepicAttachmentFileName[file]) {
         attachment.file_path = `${facepicAttachmentsPath}/${replacedFile}`;
         attachment.facepic_status = 'Current';
         attachment.id = facepicAttachmentIdCounter++;
