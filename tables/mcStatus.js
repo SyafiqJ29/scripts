@@ -24,7 +24,7 @@ const importMcStatuses = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // mcStatus[v1_v2_column_maps['tbl_mcStatus'][key]] = date;
+            // mcStatus[v1_v2_column_maps['tbl_mcStatus'][key]] = format(new Date(date), 'yyyy-MM-dd');
 
             mcStatus[v1_v2_column_maps['tbl_mcStatus'][key]] = row[key];
           }
@@ -32,17 +32,17 @@ const importMcStatuses = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             mcStatus[v1_v2_column_maps['tbl_mcStatus'][key]] = '1920-01-01';
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            mcStatus[v1_v2_column_maps['tbl_mcStatus'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            mcStatus[v1_v2_column_maps['tbl_mcStatus'][key]] = format(new Date(date), 'yyyy-MM-dd');
           }
         } else if (key === 'MC_exp_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             mcStatus[v1_v2_column_maps['tbl_mcStatus'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            mcStatus[v1_v2_column_maps['tbl_mcStatus'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            mcStatus[v1_v2_column_maps['tbl_mcStatus'][key]] = format(new Date(date), 'yyyy-MM-dd');
           }
         } else if (key === 'Prob_key') {
           mcStatus.problem_id = problemKeyToId[row[key]];

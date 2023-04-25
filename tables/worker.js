@@ -40,9 +40,9 @@ const importWorkers = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             worker[v1_v2_column_maps['tbl_worker'][key]] = '1920-01-01';
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            worker[v1_v2_column_maps['tbl_worker'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            worker[v1_v2_column_maps['tbl_worker'][key]] = format(new Date(date), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -51,7 +51,7 @@ const importWorkers = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // worker[v1_v2_column_maps['tbl_worker'][key]] = date;
+            // worker[v1_v2_column_maps['tbl_worker'][key]] = format(new Date(date), 'yyyy-MM-dd');
 
             worker[v1_v2_column_maps['tbl_worker'][key]] = row[key];
           }
@@ -62,7 +62,7 @@ const importWorkers = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // worker[v1_v2_column_maps['tbl_worker'][key]] = date;
+            // worker[v1_v2_column_maps['tbl_worker'][key]] = format(new Date(date), 'yyyy-MM-dd');
 
             worker[v1_v2_column_maps['tbl_worker'][key]] = row[key];
           }

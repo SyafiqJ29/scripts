@@ -21,9 +21,9 @@ const importCaseDiscussions = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             caseDiscussion[v1_v2_column_maps['tbl_caseDiscussion'][key]] = '1920-01-01';
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            caseDiscussion[v1_v2_column_maps['tbl_caseDiscussion'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            caseDiscussion[v1_v2_column_maps['tbl_caseDiscussion'][key]] = format(new Date(date), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -32,7 +32,7 @@ const importCaseDiscussions = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // caseDiscussion[v1_v2_column_maps['tbl_caseDiscussion'][key]] = date;
+            // caseDiscussion[v1_v2_column_maps['tbl_caseDiscussion'][key]] = format(new Date(date), 'yyyy-MM-dd');
 
             caseDiscussion[v1_v2_column_maps['tbl_caseDiscussion'][key]] = row[key];
           }

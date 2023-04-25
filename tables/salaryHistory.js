@@ -24,7 +24,7 @@ const importSalaryHistorys = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // salaryHistory[v1_v2_column_maps['tbl_salaryHistory'][key]] = date;
+            // salaryHistory[v1_v2_column_maps['tbl_salaryHistory'][key]] = format(new Date(date), 'yyyy-MM-dd');
 
             salaryHistory[v1_v2_column_maps['tbl_salaryHistory'][key]] = row[key];
           }

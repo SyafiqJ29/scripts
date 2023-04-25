@@ -24,7 +24,7 @@ const importWicaStatuses = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // wicaStatus[v1_v2_column_maps['tbl_wicaStatus'][key]] = date;
+            // wicaStatus[v1_v2_column_maps['tbl_wicaStatus'][key]] = format(new Date(date), 'yyyy-MM-dd');
 
             wicaStatus[v1_v2_column_maps['tbl_wicaStatus'][key]] = row[key];
           }
@@ -32,9 +32,9 @@ const importWicaStatuses = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             wicaStatus[v1_v2_column_maps['tbl_wicaStatus'][key]] = '1920-01-01';
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            wicaStatus[v1_v2_column_maps['tbl_wicaStatus'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            wicaStatus[v1_v2_column_maps['tbl_wicaStatus'][key]] = format(new Date(date), 'yyyy-MM-dd');
           }
         } else if (key === 'Prob_key') {
           wicaStatus.problem_id = problemKeyToId[row[key]];

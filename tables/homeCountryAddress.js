@@ -19,9 +19,9 @@ const importhomeCountryAddresses = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = format(new Date(date), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -30,7 +30,7 @@ const importhomeCountryAddresses = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = date;
+            // homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = format(new Date(date), 'yyyy-MM-dd');
 
             homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = row[key];
           }

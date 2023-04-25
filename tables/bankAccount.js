@@ -19,9 +19,9 @@ const importBankAccounts = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             bankAccount[v1_v2_column_maps['tbl_bankAccount'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            bankAccount[v1_v2_column_maps['tbl_bankAccount'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            bankAccount[v1_v2_column_maps['tbl_bankAccount'][key]] = format(new Date(date), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -30,7 +30,7 @@ const importBankAccounts = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // bankAccount[v1_v2_column_maps['tbl_bankAccount'][key]] = date;
+            // bankAccount[v1_v2_column_maps['tbl_bankAccount'][key]] = format(new Date(date), 'yyyy-MM-dd');
 
             bankAccount[v1_v2_column_maps['tbl_bankAccount'][key]] = row[key];
           }
