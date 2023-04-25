@@ -24,7 +24,7 @@ const importOtherComplaints = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // otherComplaint[v1_v2_column_maps['tbl_otherComplaint'][key]] = date;
+            // otherComplaint[v1_v2_column_maps['tbl_otherComplaint'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             otherComplaint[v1_v2_column_maps['tbl_otherComplaint'][key]] = row[key];
           }
@@ -32,9 +32,9 @@ const importOtherComplaints = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             otherComplaint[v1_v2_column_maps['tbl_otherComplaint'][key]] = '1920-01-01';
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            otherComplaint[v1_v2_column_maps['tbl_otherComplaint'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            otherComplaint[v1_v2_column_maps['tbl_otherComplaint'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Prob_key') {
           otherComplaint.problem_id = problemKeyToId[row[key]];
@@ -68,7 +68,7 @@ const importOtherComplaints = () => {
     const columns = Object.keys(totalOtherComplaints[0][0]);
 
     for (let i = 0; i < totalOtherComplaints.length; i += 1) {
-      await postgreSQL`INSERT INTO public."otherComplaint" ${postgreSQL(totalOtherComplaints[i], columns)}`;
+      if (totalOtherComplaints[i].length > 0) await postgreSQL`INSERT INTO public."otherComplaint" ${postgreSQL(totalOtherComplaints[i], columns)}`;
       console.log(`=== Inserted ${totalOtherComplaints[i].length} OtherComplaints ===`);
     }
   });

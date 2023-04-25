@@ -21,17 +21,17 @@ const importAuxiliaryCaseWorkers = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             auxiliaryCaseWorker[v1_v2_column_maps['tbl_auxiliaryCaseWorker'][key]] = '1920-01-01';
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            auxiliaryCaseWorker[v1_v2_column_maps['tbl_auxiliaryCaseWorker'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            auxiliaryCaseWorker[v1_v2_column_maps['tbl_auxiliaryCaseWorker'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Aux_end') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             auxiliaryCaseWorker[v1_v2_column_maps['tbl_auxiliaryCaseWorker'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            auxiliaryCaseWorker[v1_v2_column_maps['tbl_auxiliaryCaseWorker'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            auxiliaryCaseWorker[v1_v2_column_maps['tbl_auxiliaryCaseWorker'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -40,7 +40,7 @@ const importAuxiliaryCaseWorkers = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // auxiliaryCaseWorker[v1_v2_column_maps['tbl_auxiliaryCaseWorker'][key]] = date;
+            // auxiliaryCaseWorker[v1_v2_column_maps['tbl_auxiliaryCaseWorker'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             auxiliaryCaseWorker[v1_v2_column_maps['tbl_auxiliaryCaseWorker'][key]] = row[key];
           }
@@ -76,7 +76,7 @@ const importAuxiliaryCaseWorkers = () => {
     const columns = Object.keys(totalAuxiliaryCaseWorkers[0][0]);
 
     for (let i = 0; i < totalAuxiliaryCaseWorkers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."auxiliaryCaseWorker" ${postgreSQL(totalAuxiliaryCaseWorkers[i], columns)}`;
+      if (totalAuxiliaryCaseWorkers[i].length > 0) await postgreSQL`INSERT INTO public."auxiliaryCaseWorker" ${postgreSQL(totalAuxiliaryCaseWorkers[i], columns)}`;
       console.log(`=== Inserted ${totalAuxiliaryCaseWorkers[i].length} auxiliaryCaseWorkers ===`);
     }
   });

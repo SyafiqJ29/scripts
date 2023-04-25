@@ -40,7 +40,7 @@ const importJobs = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // job[v1_v2_column_maps['tbl_job'][key]] = date;
+            // job[v1_v2_column_maps['tbl_job'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             job[v1_v2_column_maps['tbl_job'][key]] = row[key];
           }
@@ -92,7 +92,7 @@ const importJobs = () => {
     const columns = Object.keys(totalJobs[0][0]);
 
     for (let i = 0; i < totalJobs.length; i += 1) {
-      await postgreSQL`INSERT INTO public.job ${postgreSQL(totalJobs[i], columns)}`;
+      if (totalJobs[i].length > 0) await postgreSQL`INSERT INTO public.job ${postgreSQL(totalJobs[i], columns)}`;
       console.log(`=== Inserted ${totalJobs[i].length} jobs ===`);
     }
 
@@ -105,7 +105,7 @@ const importJobs = () => {
     importEmployers();
     importWorkplaces();
     importWorkHistorys();
-    // importAccommodations();
+    importAccommodations();
     importTransferRepats();
     importProblems();
   });

@@ -19,9 +19,9 @@ const importDigitalContacts = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             digitalContact[v1_v2_column_maps['tbl_digitalContact'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            digitalContact[v1_v2_column_maps['tbl_digitalContact'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            digitalContact[v1_v2_column_maps['tbl_digitalContact'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -30,7 +30,7 @@ const importDigitalContacts = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // digitalContact[v1_v2_column_maps['tbl_digitalContact'][key]] = date;
+            // digitalContact[v1_v2_column_maps['tbl_digitalContact'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             digitalContact[v1_v2_column_maps['tbl_digitalContact'][key]] = row[key];
           }
@@ -62,7 +62,7 @@ const importDigitalContacts = () => {
     const columns = Object.keys(totalDigitalContacts[0][0]);
 
     for (let i = 0; i < totalDigitalContacts.length; i += 1) {
-      await postgreSQL`INSERT INTO public."digitalContact" ${postgreSQL(totalDigitalContacts[i], columns)}`;
+      if (totalDigitalContacts[i].length > 0) await postgreSQL`INSERT INTO public."digitalContact" ${postgreSQL(totalDigitalContacts[i], columns)}`;
       console.log(`=== Inserted ${totalDigitalContacts[i].length} digitalContacts ===`);
     }
   });

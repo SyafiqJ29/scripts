@@ -24,7 +24,7 @@ const importIllnesss = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // illness[v1_v2_column_maps['tbl_illness'][key]] = date;
+            // illness[v1_v2_column_maps['tbl_illness'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             illness[v1_v2_column_maps['tbl_illness'][key]] = row[key];
           }
@@ -60,7 +60,7 @@ const importIllnesss = () => {
     const columns = Object.keys(totalIllnesss[0][0]);
 
     for (let i = 0; i < totalIllnesss.length; i += 1) {
-      await postgreSQL`INSERT INTO public."illness" ${postgreSQL(totalIllnesss[i], columns)}`;
+      if (totalIllnesss[i].length > 0) await postgreSQL`INSERT INTO public."illness" ${postgreSQL(totalIllnesss[i], columns)}`;
       console.log(`=== Inserted ${totalIllnesss[i].length} illnesss ===`);
     }
   });

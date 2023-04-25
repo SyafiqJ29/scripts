@@ -24,7 +24,7 @@ const importOtherProblems = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // otherProblem[v1_v2_column_maps['tbl_otherProblem'][key]] = date;
+            // otherProblem[v1_v2_column_maps['tbl_otherProblem'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             otherProblem[v1_v2_column_maps['tbl_otherProblem'][key]] = row[key];
           }
@@ -60,7 +60,7 @@ const importOtherProblems = () => {
     const columns = Object.keys(totalOtherProblems[0][0]);
 
     for (let i = 0; i < totalOtherProblems.length; i += 1) {
-      await postgreSQL`INSERT INTO public."otherProblem" ${postgreSQL(totalOtherProblems[i], columns)}`;
+      if (totalOtherProblems[i].length > 0) await postgreSQL`INSERT INTO public."otherProblem" ${postgreSQL(totalOtherProblems[i], columns)}`;
       console.log(`=== Inserted ${totalOtherProblems[i].length} otherProblems ===`);
     }
   });

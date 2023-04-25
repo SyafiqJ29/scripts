@@ -22,7 +22,7 @@ const importNicknames = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // nickname[v1_v2_column_maps['tbl_nickname'][key]] = date;
+            // nickname[v1_v2_column_maps['tbl_nickname'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             nickname[v1_v2_column_maps['tbl_nickname'][key]] = row[key];
           }
@@ -54,7 +54,7 @@ const importNicknames = () => {
     const columns = Object.keys(totalNicknames[0][0]);
 
     for (let i = 0; i < totalNicknames.length; i += 1) {
-      await postgreSQL`INSERT INTO public.nickname ${postgreSQL(totalNicknames[i], columns)}`;
+      if (totalNicknames[i].length > 0) await postgreSQL`INSERT INTO public.nickname ${postgreSQL(totalNicknames[i], columns)}`;
       console.log(`=== Inserted ${totalNicknames[i].length} nicknames ===`);
     }
   });

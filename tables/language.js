@@ -22,7 +22,7 @@ const importLanguages = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // language[v1_v2_column_maps['tbl_language'][key]] = date;
+            // language[v1_v2_column_maps['tbl_language'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             language[v1_v2_column_maps['tbl_language'][key]] = row[key];
           }
@@ -54,7 +54,7 @@ const importLanguages = () => {
     const columns = Object.keys(totalLanguages[0][0]);
 
     for (let i = 0; i < totalLanguages.length; i += 1) {
-      await postgreSQL`INSERT INTO public."language" ${postgreSQL(totalLanguages[i], columns)}`;
+      if (totalLanguages[i].length > 0) await postgreSQL`INSERT INTO public."language" ${postgreSQL(totalLanguages[i], columns)}`;
       console.log(`=== Inserted ${totalLanguages[i].length} languages ===`);
     }
   });

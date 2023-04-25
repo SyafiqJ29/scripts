@@ -23,7 +23,7 @@ const importAccommodations = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // accommodation[v1_v2_column_maps['tbl_accommodation'][key]] = date;
+            // accommodation[v1_v2_column_maps['tbl_accommodation'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             accommodation[v1_v2_column_maps['tbl_accommodation'][key]] = row[key];
           }
@@ -57,7 +57,7 @@ const importAccommodations = () => {
     const columns = Object.keys(totalAccommodations[0][0]);
 
     for (let i = 0; i < totalAccommodations.length; i += 1) {
-      await postgreSQL`INSERT INTO public."accommodation" ${postgreSQL(totalAccommodations[i], columns)}`;
+      if (totalAccommodations[i].length > 0) await postgreSQL`INSERT INTO public."accommodation" ${postgreSQL(totalAccommodations[i], columns)}`;
       console.log(`=== Inserted ${totalAccommodations[i].length} accommodations ===`);
     }
   });

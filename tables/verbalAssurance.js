@@ -23,7 +23,7 @@ const importVerbalAssurances = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // verbalAssurance[v1_v2_column_maps['tbl_verbalAssurances'][key]] = date;
+            // verbalAssurance[v1_v2_column_maps['tbl_verbalAssurances'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             verbalAssurance[v1_v2_column_maps['tbl_verbalAssurances'][key]] = row[key];
           }
@@ -57,7 +57,7 @@ const importVerbalAssurances = () => {
     const columns = Object.keys(totalVerbalAssurances[0][0]);
 
     for (let i = 0; i < totalVerbalAssurances.length; i += 1) {
-      await postgreSQL`INSERT INTO public."verbalAssurances" ${postgreSQL(totalVerbalAssurances[i], columns)}`;
+      if (totalVerbalAssurances[i].length > 0) await postgreSQL`INSERT INTO public."verbalAssurances" ${postgreSQL(totalVerbalAssurances[i], columns)}`;
       console.log(`=== Inserted ${totalVerbalAssurances[i].length} verbalAssurances ===`);
     }
   });

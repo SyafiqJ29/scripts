@@ -19,9 +19,9 @@ const importNextOfKins = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             nextOfKin[v1_v2_column_maps['tbl_nextOfKin'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            nextOfKin[v1_v2_column_maps['tbl_nextOfKin'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            nextOfKin[v1_v2_column_maps['tbl_nextOfKin'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -30,7 +30,7 @@ const importNextOfKins = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // nextOfKin[v1_v2_column_maps['tbl_nextOfKin'][key]] = date;
+            // nextOfKin[v1_v2_column_maps['tbl_nextOfKin'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             nextOfKin[v1_v2_column_maps['tbl_nextOfKin'][key]] = row[key];
           }
@@ -62,7 +62,7 @@ const importNextOfKins = () => {
     const columns = Object.keys(totalNextOfKins[0][0]);
 
     for (let i = 0; i < totalNextOfKins.length; i += 1) {
-      await postgreSQL`INSERT INTO public."nextOfKin" ${postgreSQL(totalNextOfKins[i], columns)}`;
+      if (totalNextOfKins[i].length > 0) await postgreSQL`INSERT INTO public."nextOfKin" ${postgreSQL(totalNextOfKins[i], columns)}`;
       console.log(`=== Inserted ${totalNextOfKins[i].length} nextOfKins ===`);
     }
   });

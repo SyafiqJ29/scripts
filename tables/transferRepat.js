@@ -23,7 +23,7 @@ const importTransferRepats = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // transferRepat[v1_v2_column_maps['tbl_transferRepat'][key]] = date;
+            // transferRepat[v1_v2_column_maps['tbl_transferRepat'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             transferRepat[v1_v2_column_maps['tbl_transferRepat'][key]] = row[key];
           }
@@ -57,7 +57,7 @@ const importTransferRepats = () => {
     const columns = Object.keys(totalTransferRepats[0][0]);
 
     for (let i = 0; i < totalTransferRepats.length; i += 1) {
-      await postgreSQL`INSERT INTO public."transferRepat" ${postgreSQL(totalTransferRepats[i], columns)}`;
+      if (totalTransferRepats[i].length > 0) await postgreSQL`INSERT INTO public."transferRepat" ${postgreSQL(totalTransferRepats[i], columns)}`;
       console.log(`=== Inserted ${totalTransferRepats[i].length} transferRepats ===`);
     }
   });

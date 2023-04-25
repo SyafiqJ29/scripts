@@ -20,9 +20,9 @@ const importBenefits = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             benefit[v1_v2_column_maps['tbl_benefit'][key]] = '1920-01-01';
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            benefit[v1_v2_column_maps['tbl_benefit'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            benefit[v1_v2_column_maps['tbl_benefit'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -31,7 +31,7 @@ const importBenefits = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // benefit[v1_v2_column_maps['tbl_benefit'][key]] = date;
+            // benefit[v1_v2_column_maps['tbl_benefit'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             benefit[v1_v2_column_maps['tbl_benefit'][key]] = row[key];
           }
@@ -82,7 +82,7 @@ const importBenefits = () => {
     const columns = Object.keys(totalBenefits[0][0]);
 
     for (let i = 0; i < totalBenefits.length; i += 1) {
-      await postgreSQL`INSERT INTO public."benefit" ${postgreSQL(totalBenefits[i], columns)}`;
+      if (totalBenefits[i].length > 0) await postgreSQL`INSERT INTO public."benefit" ${postgreSQL(totalBenefits[i], columns)}`;
       console.log(`=== Inserted ${totalBenefits[i].length} benefits ===`);
     }
   });

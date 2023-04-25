@@ -23,7 +23,7 @@ const importWorkplaces = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // workplace[v1_v2_column_maps['tbl_workplace'][key]] = date;
+            // workplace[v1_v2_column_maps['tbl_workplace'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             workplace[v1_v2_column_maps['tbl_workplace'][key]] = row[key];
           }
@@ -57,7 +57,7 @@ const importWorkplaces = () => {
     const columns = Object.keys(totalWorkplaces[0][0]);
 
     for (let i = 0; i < totalWorkplaces.length; i += 1) {
-      await postgreSQL`INSERT INTO public."workplace" ${postgreSQL(totalWorkplaces[i], columns)}`;
+      if (totalWorkplaces[i].length > 0) await postgreSQL`INSERT INTO public."workplace" ${postgreSQL(totalWorkplaces[i], columns)}`;
       console.log(`=== Inserted ${totalWorkplaces[i].length} workplaces ===`);
     }
   });

@@ -24,7 +24,7 @@ const importAggravatingIssues = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // aggravatingIssue[v1_v2_column_maps['tbl_aggravatingIssue'][key]] = date;
+            // aggravatingIssue[v1_v2_column_maps['tbl_aggravatingIssue'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             aggravatingIssue[v1_v2_column_maps['tbl_aggravatingIssue'][key]] = row[key];
           }
@@ -62,7 +62,7 @@ const importAggravatingIssues = () => {
     const columns = Object.keys(totalAggravatingIssues[0][0]);
 
     for (let i = 0; i < totalAggravatingIssues.length; i += 1) {
-      await postgreSQL`INSERT INTO public."aggravatingIssue" ${postgreSQL(totalAggravatingIssues[i], columns)}`;
+      if (totalAggravatingIssues[i].length > 0) await postgreSQL`INSERT INTO public."aggravatingIssue" ${postgreSQL(totalAggravatingIssues[i], columns)}`;
       console.log(`=== Inserted ${totalAggravatingIssues[i].length} aggravatingIssues ===`);
     }
   });

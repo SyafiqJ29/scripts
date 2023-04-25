@@ -19,9 +19,9 @@ const importhomeCountryAddresses = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -30,7 +30,7 @@ const importhomeCountryAddresses = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = date;
+            // homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             homeCountryAddress[v1_v2_column_maps['tbl_homeCountryAddress'][key]] = row[key];
           }
@@ -62,7 +62,7 @@ const importhomeCountryAddresses = () => {
     const columns = Object.keys(totalhomeCountryAddresses[0][0]);
 
     for (let i = 0; i < totalhomeCountryAddresses.length; i += 1) {
-      await postgreSQL`INSERT INTO public."homeCountryAddress" ${postgreSQL(totalhomeCountryAddresses[i], columns)}`;
+      if (totalhomeCountryAddresses[i].length > 0) await postgreSQL`INSERT INTO public."homeCountryAddress" ${postgreSQL(totalhomeCountryAddresses[i], columns)}`;
       console.log(`=== Inserted ${totalhomeCountryAddresses[i].length} homeCountryAddresses ===`);
     }
   });

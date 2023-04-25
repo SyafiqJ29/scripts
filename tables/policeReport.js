@@ -24,7 +24,7 @@ const importPoliceReports = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // policeReport[v1_v2_column_maps['tbl_policeReport'][key]] = date;
+            // policeReport[v1_v2_column_maps['tbl_policeReport'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             policeReport[v1_v2_column_maps['tbl_policeReport'][key]] = row[key];
           }
@@ -32,9 +32,9 @@ const importPoliceReports = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             policeReport[v1_v2_column_maps['tbl_policeReport'][key]] = '1920-01-01';
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            policeReport[v1_v2_column_maps['tbl_policeReport'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            policeReport[v1_v2_column_maps['tbl_policeReport'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Prob_key') {
           policeReport.problem_id = problemKeyToId[row[key]];
@@ -68,7 +68,7 @@ const importPoliceReports = () => {
     const columns = Object.keys(totalPoliceReports[0][0]);
 
     for (let i = 0; i < totalPoliceReports.length; i += 1) {
-      await postgreSQL`INSERT INTO public."policeReport" ${postgreSQL(totalPoliceReports[i], columns)}`;
+      if (totalPoliceReports[i].length > 0) await postgreSQL`INSERT INTO public."policeReport" ${postgreSQL(totalPoliceReports[i], columns)}`;
       console.log(`=== Inserted ${totalPoliceReports[i].length} policeReports ===`);
     }
   });

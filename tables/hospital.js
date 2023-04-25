@@ -21,9 +21,9 @@ const importHospitals = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             hospital[v1_v2_column_maps['tbl_hospital'][key]] = '1920-01-01';
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            hospital[v1_v2_column_maps['tbl_hospital'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            hospital[v1_v2_column_maps['tbl_hospital'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -32,7 +32,7 @@ const importHospitals = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // hospital[v1_v2_column_maps['tbl_hospital'][key]] = date;
+            // hospital[v1_v2_column_maps['tbl_hospital'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             hospital[v1_v2_column_maps['tbl_hospital'][key]] = row[key];
           }
@@ -68,7 +68,7 @@ const importHospitals = () => {
     const columns = Object.keys(totalHospitals[0][0]);
 
     for (let i = 0; i < totalHospitals.length; i += 1) {
-      await postgreSQL`INSERT INTO public."hospital" ${postgreSQL(totalHospitals[i], columns)}`;
+      if (totalHospitals[i].length > 0) await postgreSQL`INSERT INTO public."hospital" ${postgreSQL(totalHospitals[i], columns)}`;
       console.log(`=== Inserted ${totalHospitals[i].length} hospitals ===`);
     }
   });

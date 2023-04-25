@@ -20,9 +20,9 @@ const importIpaDetails = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             ipaDetail[v1_v2_column_maps['tbl_ipaDetails'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            ipaDetail[v1_v2_column_maps['tbl_ipaDetails'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            ipaDetail[v1_v2_column_maps['tbl_ipaDetails'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -31,7 +31,7 @@ const importIpaDetails = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // ipaDetail[v1_v2_column_maps['tbl_ipaDetails'][key]] = date;
+            // ipaDetail[v1_v2_column_maps['tbl_ipaDetails'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             ipaDetail[v1_v2_column_maps['tbl_ipaDetails'][key]] = row[key];
           }
@@ -65,7 +65,7 @@ const importIpaDetails = () => {
     const columns = Object.keys(totalIpaDetails[0][0]);
 
     for (let i = 0; i < totalIpaDetails.length; i += 1) {
-      await postgreSQL`INSERT INTO public."ipaDetails" ${postgreSQL(totalIpaDetails[i], columns)}`;
+      if (totalIpaDetails[i].length > 0) await postgreSQL`INSERT INTO public."ipaDetails" ${postgreSQL(totalIpaDetails[i], columns)}`;
       console.log(`=== Inserted ${totalIpaDetails[i].length} ipaDetails ===`);
     }
   });

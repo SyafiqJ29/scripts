@@ -23,7 +23,7 @@ const importWorkHistorys = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // workHistory[v1_v2_column_maps['tbl_workHistory'][key]] = date;
+            // workHistory[v1_v2_column_maps['tbl_workHistory'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             workHistory[v1_v2_column_maps['tbl_workHistory'][key]] = row[key];
           }
@@ -59,7 +59,7 @@ const importWorkHistorys = () => {
     const columns = Object.keys(totalWorkHistorys[0][0]);
 
     for (let i = 0; i < totalWorkHistorys.length; i += 1) {
-      await postgreSQL`INSERT INTO public."workHistory" ${postgreSQL(totalWorkHistorys[i], columns)}`;
+      if (totalWorkHistorys[i].length > 0) await postgreSQL`INSERT INTO public."workHistory" ${postgreSQL(totalWorkHistorys[i], columns)}`;
       console.log(`=== Inserted ${totalWorkHistorys[i].length} workHistorys ===`);
     }
   });

@@ -23,7 +23,7 @@ const importAgents = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // agent[v1_v2_column_maps['tbl_agent'][key]] = date;
+            // agent[v1_v2_column_maps['tbl_agent'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             agent[v1_v2_column_maps['tbl_agent'][key]] = row[key];
           }
@@ -57,7 +57,7 @@ const importAgents = () => {
     const columns = Object.keys(totalAgents[0][0]);
 
     for (let i = 0; i < totalAgents.length; i += 1) {
-      await postgreSQL`INSERT INTO public."agent" ${postgreSQL(totalAgents[i], columns)}`;
+      if (totalAgents[i].length > 0)await postgreSQL`INSERT INTO public."agent" ${postgreSQL(totalAgents[i], columns)}`;
       console.log(`=== Inserted ${totalAgents[i].length} agents ===`);
     }
   });

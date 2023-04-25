@@ -19,9 +19,9 @@ const importSgAddresss = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             sgAddress[v1_v2_column_maps['tbl_sgAddress'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            sgAddress[v1_v2_column_maps['tbl_sgAddress'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            sgAddress[v1_v2_column_maps['tbl_sgAddress'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -30,7 +30,7 @@ const importSgAddresss = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // sgAddress[v1_v2_column_maps['tbl_sgAddress'][key]] = date;
+            // sgAddress[v1_v2_column_maps['tbl_sgAddress'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             sgAddress[v1_v2_column_maps['tbl_sgAddress'][key]] = row[key];
           }
@@ -62,7 +62,7 @@ const importSgAddresss = () => {
     const columns = Object.keys(totalSgAddresss[0][0]);
 
     for (let i = 0; i < totalSgAddresss.length; i += 1) {
-      await postgreSQL`INSERT INTO public."sgAddress" ${postgreSQL(totalSgAddresss[i], columns)}`;
+      if (totalSgAddresss[i].length > 0) await postgreSQL`INSERT INTO public."sgAddress" ${postgreSQL(totalSgAddresss[i], columns)}`;
       console.log(`=== Inserted ${totalSgAddresss[i].length} sgAddresss ===`);
     }
   });

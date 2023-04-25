@@ -23,7 +23,7 @@ const importEmployers = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // employer[v1_v2_column_maps['tbl_employer'][key]] = date;
+            // employer[v1_v2_column_maps['tbl_employer'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             employer[v1_v2_column_maps['tbl_employer'][key]] = row[key];
           }
@@ -57,7 +57,7 @@ const importEmployers = () => {
     const columns = Object.keys(totalEmployers[0][0]);
 
     for (let i = 0; i < totalEmployers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."employer" ${postgreSQL(totalEmployers[i], columns)}`;
+      if (totalEmployers[i].length > 0) await postgreSQL`INSERT INTO public."employer" ${postgreSQL(totalEmployers[i], columns)}`;
       console.log(`=== Inserted ${totalEmployers[i].length} employers ===`);
     }
   });

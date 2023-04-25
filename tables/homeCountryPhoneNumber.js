@@ -19,9 +19,9 @@ const importHomeCountryPhoneNumbers = () => {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
             homeCountryPhoneNumber[v1_v2_column_maps['tbl_homeCountryPhoneNumber'][key]] = null;
           } else {
-            let dateParts = row[key].split("-");
-            let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            homeCountryPhoneNumber[v1_v2_column_maps['tbl_homeCountryPhoneNumber'][key]] = date;
+            // let dateParts = row[key].split("-");
+            // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
+            homeCountryPhoneNumber[v1_v2_column_maps['tbl_homeCountryPhoneNumber'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -30,7 +30,7 @@ const importHomeCountryPhoneNumbers = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // homeCountryPhoneNumber[v1_v2_column_maps['tbl_homeCountryPhoneNumber'][key]] = date;
+            // homeCountryPhoneNumber[v1_v2_column_maps['tbl_homeCountryPhoneNumber'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             homeCountryPhoneNumber[v1_v2_column_maps['tbl_homeCountryPhoneNumber'][key]] = row[key];
           }
@@ -62,7 +62,7 @@ const importHomeCountryPhoneNumbers = () => {
     const columns = Object.keys(totalHomeCountryPhoneNumbers[0][0]);
 
     for (let i = 0; i < totalHomeCountryPhoneNumbers.length; i += 1) {
-      await postgreSQL`INSERT INTO public."homeCountryPhoneNumber" ${postgreSQL(totalHomeCountryPhoneNumbers[i], columns)}`;
+      if (totalHomeCountryPhoneNumbers[i].length > 0) await postgreSQL`INSERT INTO public."homeCountryPhoneNumber" ${postgreSQL(totalHomeCountryPhoneNumbers[i], columns)}`;
       console.log(`=== Inserted ${totalHomeCountryPhoneNumbers[i].length} homeCountryPhoneNumbers ===`);
     }
   });

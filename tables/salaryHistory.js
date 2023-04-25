@@ -24,7 +24,7 @@ const importSalaryHistorys = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // salaryHistory[v1_v2_column_maps['tbl_salaryHistory'][key]] = date;
+            // salaryHistory[v1_v2_column_maps['tbl_salaryHistory'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             salaryHistory[v1_v2_column_maps['tbl_salaryHistory'][key]] = row[key];
           }
@@ -61,7 +61,7 @@ const importSalaryHistorys = () => {
     const columns = Object.keys(totalSalaryHistorys[0][0]);
 
     for (let i = 0; i < totalSalaryHistorys.length; i += 1) {
-      await postgreSQL`INSERT INTO public."salaryHistory" ${postgreSQL(totalSalaryHistorys[i], columns)}`;
+      if (totalSalaryHistorys[i].length > 0) await postgreSQL`INSERT INTO public."salaryHistory" ${postgreSQL(totalSalaryHistorys[i], columns)}`;
       console.log(`=== Inserted ${totalSalaryHistorys[i].length} salaryHistorys ===`);
     }
   });
