@@ -23,7 +23,7 @@ const importLawyers = () => {
           } else {
             // let dateParts = row[key].split("-");
             // let date = format(new Date(+dateParts[2], dateParts[1], +dateParts[0]), 'yyyy-MM-dd');
-            lawyer[v1_v2_column_maps['tbl_lawyer'][key]] = format(new Date(date), 'yyyy-MM-dd');
+            lawyer[v1_v2_column_maps['tbl_lawyer'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
           }
         } else if (key === 'Entry_date') {
           if (row[key] === 'NULL' || row[key] === '' || row[key] === ' ') {
@@ -32,7 +32,7 @@ const importLawyers = () => {
             // let dateTimeParts = row[key].split(" ");
             // let dateParts = dateTimeParts[0].split("-");
             // let date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${dateTimeParts[1]}`;
-            // lawyer[v1_v2_column_maps['tbl_lawyer'][key]] = format(new Date(date), 'yyyy-MM-dd');
+            // lawyer[v1_v2_column_maps['tbl_lawyer'][key]] = format(new Date(row[key]), 'yyyy-MM-dd');
 
             lawyer[v1_v2_column_maps['tbl_lawyer'][key]] = row[key];
           }
