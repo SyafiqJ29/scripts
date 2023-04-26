@@ -45,17 +45,17 @@ const importBenefits = () => {
       }
     });
 
-    if (benefit.bene_item === 'Shelter admission' || benefit.bene_item === 'Cash for accommodation' || benefit.bene_item === 'Project roof allowance' || benefit.bene_item === 'Hotel invoice') {
+    if (benefit.bene_item === 'Shelter admission' || benefit.bene_item === 'Cash for accommodation' || benefit.bene_item === 'Project roof allowance' || benefit.bene_item === 'Hotel invoice' || benefit.bene_item === 'Cash accom' || benefit.bene_item === 'Cash accom (Covid Proj Roof)' || benefit.bene_item === 'Cash accom (normal Proj Roof)') {
       benefit.bene_class = 'Accommodation';
-    } else if (benefit.bene_item === 'Tablet' || benefit.bene_item === 'Phone value card' || benefit.bene_item === 'Mobile device' || benefit.bene_item === 'Phone top-up') {
+    } else if (benefit.bene_item === 'Tablet' || benefit.bene_item === 'Phone value card' || benefit.bene_item === 'Mobile device' || benefit.bene_item === 'Phone top-up' || benefit.bene_item === 'Phone card') {
       benefit.bene_class = 'Connectivity';
-    } else if (benefit.bene_item === 'Dorm meal allowance' || benefit.bene_item === 'Meal card' || benefit.bene_item === 'Other food beneft' || benefit.bene_item === 'Cash for meal') {
+    } else if (benefit.bene_item === 'Dorm meal allowance' || benefit.bene_item === 'Meal card' || benefit.bene_item === 'Other food beneft' || benefit.bene_item === 'Cash for meal' || benefit.bene_item === 'Cash meal' || benefit.bene_item === 'Meal CR' || benefit.bene_item === 'Blacklist' || benefit.bene_item === 'L J Card' || benefit.bene_item === 'Dorm meals allowance') {
       benefit.bene_class = 'Food';
-    } else if (benefit.bene_item === 'Cash for dental' || benefit.bene_item === 'Other medical benefit' || benefit.bene_item === 'Cash for medical' || benefit.bene_item === 'Hospital invoice') {
+    } else if (benefit.bene_item === 'Cash for dental' || benefit.bene_item === 'Other medical benefit' || benefit.bene_item === 'Cash for medical' || benefit.bene_item === 'Hospital invoice' || benefit.bene_item === 'Karunya referral' || benefit.bene_item === 'Cash medical') {
       benefit.bene_class = 'Medical';
-    } else if (benefit.bene_item === 'Other miscellaneous' || benefit.bene_item === 'Cash for other purposes' || benefit.bene_item === 'Legal/court costs' || benefit.bene_item === 'Invoice from other vendor' || benefit.bene_item === 'Airline ticket' || benefit.bene_item === 'Remittance to worker or family' || benefit.bene_item === 'Refund by worker') {
+    } else if (benefit.bene_item === 'Other miscellaneous' || benefit.bene_item === 'Cash for other purposes' || benefit.bene_item === 'Legal/court costs' || benefit.bene_item === 'Invoice from other vendor' || benefit.bene_item === 'Airline ticket' || benefit.bene_item === 'Airline Ticket' || benefit.bene_item === 'Remittance to worker or family' || benefit.bene_item === 'Refund by worker' || benefit.bene_item === 'Other' || benefit.bene_item === 'Pro-bono legal representation') {
       benefit.bene_class = 'Other';
-    } else if (benefit.bene_item === 'Farego cash' || benefit.bene_item === 'Farego transport allowance' || benefit.bene_item === 'Farego card' || benefit.bene_item === 'Taxi fare') {
+    } else if (benefit.bene_item === 'Farego cash' || benefit.bene_item === 'Farego transport allowance' || benefit.bene_item === 'Farego card' || benefit.bene_item === 'Taxi fare' || benefit.bene_item === 'Cash transport' || benefit.bene_item === 'EZ FareGo' || benefit.bene_item === 'Taxi ride' || benefit.bene_item === 'EZ SWAT' || benefit.bene_item === 'FareGo $30 cash' || benefit.bene_item === 'FareGo $30' || benefit.bene_item === 'FareGo $40' || benefit.bene_item === 'Cash for transport, not FareGo' || benefit.bene_item === 'FareGo $20' || benefit.bene_item === 'FareGo $10') {
       benefit.bene_class = 'Transport';
     } else {
       benefit.bene_class = 'Other';
