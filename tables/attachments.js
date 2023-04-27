@@ -21,6 +21,8 @@ let ordinaryAttachmentIdCounter = 1;
 
 let copyIndex = 1;
 
+let facepicPathToId = {};
+
 const importAttachments = async () => {
   const directories = fs.readdirSync('workers');
   directories.forEach(directory => {
@@ -44,6 +46,7 @@ const importAttachments = async () => {
         attachment.file_path = `${facepicAttachmentsPath}/${replacedFile}`;
         attachment.facepic_status = 'Current';
         attachment.id = facepicAttachmentIdCounter++;
+        facepicPathToId[`${facepicAttachmentsPath}/${replacedFile}`] = attachment.id;
 
         if (attachment.worker_id) {
           facepicAttachments.push(attachment);
@@ -121,7 +124,8 @@ const resizeFacepicAttachments = async () => {
         file_size: stats.size
       }
 
-      await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE file_path=${facepicAttachmentsPath}/${file};`
+      const path = `${facepicAttachmentsPath}/${file}`;
+      await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
       console.log(`=== Resized facepic ===`);
     });
   })
