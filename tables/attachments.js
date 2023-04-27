@@ -108,9 +108,13 @@ const importAttachments = async () => {
 };
 
 const resizeFacepicAttachments = async () => {
+  console.log("Inside resizeFacepicAttachments");
   const files = fs.readdirSync(facepicAttachmentsPath);
   files.forEach(file => {
+    console.log("File: " + file);
+    console.log("Filepath: " + `${facepicAttachmentsPath}/${file}`);
     im(`${facepicAttachmentsPath}/${file}`).resize(600, 800).write(`${facepicAttachmentsPath}/${file}`, async (err) => {
+      console.log("Resized!")
       const stats = fs.statSync(`${facepicAttachmentsPath}/${file}`);
 
       const facepicAttachment = {
