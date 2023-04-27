@@ -125,8 +125,10 @@ const resizeFacepicAttachments = async () => {
       }
 
       const path = `${facepicAttachmentsPath}/${file}`;
-      await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
-      console.log(`=== Resized facepic ===`);
+      if (facepicPathToId[path]) {
+        await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
+        console.log(`=== Resized facepic ===`);
+      }
     });
   })
 
