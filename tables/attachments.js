@@ -2,6 +2,8 @@ import * as fs from 'fs'
 import { postgreSQL, today } from '../index.js'
 import { parseFile } from 'fast-csv'
 import { facepicAttachmentFileName, workerFINToId } from './worker.js'
+import gm from 'gm'
+const im = gm.subClass({ imageMagick: true })
 
 const ordinaryAttachmentsPath = `/home/twc2/camans/server/files/ordinary-attachments`;
 const facepicAttachmentsPath = `/home/twc2/camans/server/files/facepic-attachments`;
@@ -101,6 +103,24 @@ const importAttachments = async () => {
     if (ordinaryTotalAttachments[i].length > 0) await postgreSQL`INSERT INTO public."ordinaryAttachment" ${postgreSQL(ordinaryTotalAttachments[i], ordinaryAttachmentColumns)}`;
     console.log(`=== Inserted ${ordinaryTotalAttachments[i].length} ordinaryAttachments ===`);
   }
+
+  resizeFacepicAttachments();
+};
+
+const resizeFacepicAttachments = async () => {
+  const files = fs.readdirSync(facepicAttachmentsPath);
+  files.forEach(file => {
+    im(`${facepicAttachmentsPath}/${file}`).resize(600, 800).write(`${facepicAttachmentsPath}/${file}`, async (err) => {
+      const stats = fs.statSync(`${facepicAttachmentsPath}/${file}`);
+
+      const facepicAttachment = {
+        file_size: stats.size
+      }
+
+      await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE file_path=${facepicAttachmentsPath}/${file};`
+      console.log(`=== Resized facepic ===`);
+    });
+  })
 
   importOtherAttachments();
 };
