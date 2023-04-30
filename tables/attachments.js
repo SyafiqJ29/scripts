@@ -115,6 +115,8 @@ const importAttachments = async () => {
 const resizeFacepicAttachments = async () => {
   const files = fs.readdirSync(facepicAttachmentsPath);
 
+  console.log("TOTAL FACEPICS TO RESIZE: " + files.length);
+
   for (let i = 0; i < files.length; i += 1) {
     const file = files[i];
 
@@ -134,7 +136,7 @@ const resizeFacepicAttachments = async () => {
     const path = `${facepicAttachmentsPath}/${file}`;
     if (facepicPathToId[path]) {
       await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
-      console.log(`=== Resized facepic ===`);
+      console.log(`=== Resized facepic ${i + 1} ===`);
     }
   }
 
