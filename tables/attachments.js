@@ -123,7 +123,7 @@ const resizeFacepicAttachments = async () => {
         width: 600,
         height: 800
       })
-      .toFile(`${facepicAttachmentsPath}/${file}`);
+      .toFile(`${facepicAttachmentsPath}/resized-${file}`);
 
     const stats = fs.statSync(`${facepicAttachmentsPath}/${file}`);
 
