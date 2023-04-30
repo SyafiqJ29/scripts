@@ -112,6 +112,7 @@ const resizeFacepicAttachments = async () => {
   const files = fs.readdirSync(facepicAttachmentsPath);
 
   console.log("TOTAL FACEPICS TO RESIZE: " + files.length);
+  console.log(`${postgreSQL(facepicAttachment, 'file_size')}`);
 
   for (let i = 0; i < files.length; i += 1) {
     const file = files[i];
@@ -127,10 +128,11 @@ const resizeFacepicAttachments = async () => {
         })
         .toFile(`${facepicAttachmentsPath}/resized-${file}`);
   
-      const stats = fs.statSync(`${facepicAttachmentsPath}/${file}`);
+      const stats = fs.statSync(`${facepicAttachmentsPath}/resized-${file}`);
   
       const facepicAttachment = {
-        file_size: stats.size
+        file_size: stats.size,
+        file_path: `${facepicAttachmentsPath}/resized-${file}`
       }
   
       const path = `${facepicAttachmentsPath}/${file}`;
