@@ -21,8 +21,6 @@ let ordinaryAttachments = [];
 let ordinaryRowCounter = 0;
 let ordinaryAttachmentIdCounter = 1;
 
-let copyIndex = 1;
-
 let facepicPathToId = {};
 
 const importAttachments = async () => {
@@ -78,7 +76,6 @@ const importAttachments = async () => {
 
       fs.copyFile(`workers/${directory}/${file}`, attachment.file_path, (err) => {
         if (err) throw err;
-        console.log(`copied file: ${copyIndex++}`);
       });
     })
   });
@@ -97,7 +94,6 @@ const importAttachments = async () => {
       }
 
       await postgreSQL`UPDATE public.worker SET ${postgreSQL(worker, 'path_current_facepic')} WHERE id=${facepicTotalAttachments[i][k].worker_id};`
-      console.log(`=== Updated worker path_current_facepic ===`);
     }
   }
 
