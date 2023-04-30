@@ -116,6 +116,7 @@ const resizeFacepicAttachments = async () => {
   for (let i = 0; i < files.length; i += 1) {
     const file = files[i];
 
+    console.log(`${facepicAttachmentsPath}/${file}`);
     await sharp(`${facepicAttachmentsPath}/${file}`)
       .resize({
         width: 600,
