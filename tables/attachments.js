@@ -116,24 +116,30 @@ const resizeFacepicAttachments = async () => {
   for (let i = 0; i < files.length; i += 1) {
     const file = files[i];
 
-    console.log(`${facepicAttachmentsPath}/${file}`);
-    await sharp(`${facepicAttachmentsPath}/${file}`)
-      .resize({
-        width: 600,
-        height: 800
-      })
-      .toFile(`${facepicAttachmentsPath}/resized-${file}`);
+    const filePath = `${facepicAttachmentsPath}/${file}`;
 
-    const stats = fs.statSync(`${facepicAttachmentsPath}/${file}`);
-
-    const facepicAttachment = {
-      file_size: stats.size
-    }
-
-    const path = `${facepicAttachmentsPath}/${file}`;
-    if (facepicPathToId[path]) {
-      await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
-      console.log(`=== Resized facepic ${i + 1} ===`);
+    console.log(filePath);
+    if (filePath.indexOf('bmp') === -1) {
+      await sharp(`${facepicAttachmentsPath}/${file}`)
+        .resize({
+          width: 600,
+          height: 800
+        })
+        .toFile(`${facepicAttachmentsPath}/resized-${file}`);
+  
+      const stats = fs.statSync(`${facepicAttachmentsPath}/${file}`);
+  
+      const facepicAttachment = {
+        file_size: stats.size
+      }
+  
+      const path = `${facepicAttachmentsPath}/${file}`;
+      if (facepicPathToId[path]) {
+        await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
+        console.log(`=== Resized facepic ${i + 1} ===`);
+      }
+    } else {
+      console.log(`=== Did not resize facepic ${i + 1} ===`);
     }
   }
 
