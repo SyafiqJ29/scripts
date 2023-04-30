@@ -116,6 +116,8 @@ const resizeFacepicAttachments = async () => {
   console.log("=== INSIDE resizeFacepicAttachments ===");
   console.log("=== INSIDE resizeFacepicAttachments ===");
   console.log(files.length);
+  
+  let counter = 1;
 
   (async function() {
     for await (const file of files) {
@@ -138,10 +140,10 @@ const resizeFacepicAttachments = async () => {
         const path = `${facepicAttachmentsPath}/${file}`;
         if (facepicPathToId[path]) {
           await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
-          console.log(`=== Resized facepic ${i + 1} ===`);
+          console.log(`=== Resized facepic ${counter++} ===`);
         }
       } else {
-        console.log(`=== Did not resize facepic ${i + 1} ===`);
+        console.log(`=== Did not resize facepic ${counter++} ===`);
       }
     }
   })();
