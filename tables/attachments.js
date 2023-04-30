@@ -75,8 +75,9 @@ const importAttachments = async () => {
         }
       }
 
-      fs.copyFile(`workers/${directory}/${file}`, attachment.file_path, (err) => {
+      fs.copyFileSync(`workers/${directory}/${file}`, attachment.file_path, (err) => {
         if (err) throw err;
+        console.log('Copied file');
       });
     })
   });
