@@ -9,6 +9,7 @@ import sharp from 'sharp'
 
 const ordinaryAttachmentsPath = `/home/twc2/camans/server/files/ordinary-attachments`;
 const facepicAttachmentsPath = `/home/twc2/camans/server/files/facepic-attachments`;
+const resizedFacepicAttachmentsPath = `/home/twc2/camans/server/files/resized-facepic-attachments`;
 
 // attachments
 const facepicTotalAttachments = [];
@@ -111,36 +112,69 @@ const importAttachments = async () => {
 const resizeFacepicAttachments = async () => {
   const files = fs.readdirSync(facepicAttachmentsPath);
 
-  for (let i = 0; i < files.length; i += 1) {
-    const file = files[i];
+  console.log("=== INSIDE resizeFacepicAttachments ===");
+  console.log("=== INSIDE resizeFacepicAttachments ===");
+  console.log("=== INSIDE resizeFacepicAttachments ===");
+  console.log(files.length);
 
-    const filePath = `${facepicAttachmentsPath}/${file}`;
+  (async function() {
+    for await (const file of files) {
+      const filePath = `${facepicAttachmentsPath}/${file}`;
 
-    console.log(filePath);
-    if (filePath.indexOf('bmp') === -1) {
-      await sharp(`${facepicAttachmentsPath}/${file}`)
+      if (filePath.indexOf('bmp') === -1) {
+        await sharp(`${facepicAttachmentsPath}/${file}`)
         .resize({
           width: 600,
           height: 800
         })
-        .toFile(`${facepicAttachmentsPath}/resized-${file}`);
-  
-      const stats = fs.statSync(`${facepicAttachmentsPath}/resized-${file}`);
-  
-      const facepicAttachment = {
-        file_size: stats.size,
-        file_path: `${facepicAttachmentsPath}/resized-${file}`
+        .toFile(`${resizedFacepicAttachmentsPath}/${file}`);
+    
+        const stats = fs.statSync(`${resizedFacepicAttachmentsPath}/${file}`);
+    
+        const facepicAttachment = {
+          file_size: stats.size
+        }
+    
+        const path = `${facepicAttachmentsPath}/${file}`;
+        if (facepicPathToId[path]) {
+          await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
+          console.log(`=== Resized facepic ${i + 1} ===`);
+        }
+      } else {
+        console.log(`=== Did not resize facepic ${i + 1} ===`);
       }
-  
-      const path = `${facepicAttachmentsPath}/${file}`;
-      if (facepicPathToId[path]) {
-        await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, ['file_size', 'file_path'])} WHERE id=${facepicPathToId[path]};`
-        console.log(`=== Resized facepic ${i + 1} ===`);
-      }
-    } else {
-      console.log(`=== Did not resize facepic ${i + 1} ===`);
     }
-  }
+  })();
+
+  // for (let i = 0; i < files.length; i += 1) {
+  //   const file = files[i];
+
+  //   const filePath = `${facepicAttachmentsPath}/${file}`;
+
+  //   if (filePath.indexOf('bmp') === -1) {
+  //     await sharp(`${facepicAttachmentsPath}/${file}`)
+  //     .resize({
+  //       width: 600,
+  //       height: 800
+  //     })
+  //     .toFile(`${facepicAttachmentsPath}/resized-${file}`);
+  
+  //     const stats = fs.statSync(`${facepicAttachmentsPath}/resized-${file}`);
+  
+  //     const facepicAttachment = {
+  //       file_size: stats.size,
+  //       file_path: `${facepicAttachmentsPath}/resized-${file}`
+  //     }
+  
+  //     const path = `${facepicAttachmentsPath}/${file}`;
+  //     if (facepicPathToId[path]) {
+  //       await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, ['file_size', 'file_path'])} WHERE id=${facepicPathToId[path]};`
+  //       console.log(`=== Resized facepic ${i + 1} ===`);
+  //     }
+  //   } else {
+  //     console.log(`=== Did not resize facepic ${i + 1} ===`);
+  //   }
+  // }
 
   // files.forEach(file => {
   //   console.log("File: " + file);
