@@ -4,6 +4,8 @@ import { parseFile } from 'fast-csv'
 import { facepicAttachmentFileName, workerFINToId } from './worker.js'
 import gm from 'gm'
 const im = gm.subClass({ imageMagick: true })
+import sharp from 'sharp'
+
 
 const ordinaryAttachmentsPath = `/home/twc2/camans/server/files/ordinary-attachments`;
 const facepicAttachmentsPath = `/home/twc2/camans/server/files/facepic-attachments`;
@@ -111,26 +113,49 @@ const importAttachments = async () => {
 };
 
 const resizeFacepicAttachments = async () => {
-  console.log("Inside resizeFacepicAttachments");
   const files = fs.readdirSync(facepicAttachmentsPath);
-  files.forEach(file => {
-    console.log("File: " + file);
-    console.log("Filepath: " + `${facepicAttachmentsPath}/${file}`);
-    im(`${facepicAttachmentsPath}/${file}`).resize(600, 800).write(`${facepicAttachmentsPath}/${file}`, async (err) => {
-      console.log("Resized!")
-      const stats = fs.statSync(`${facepicAttachmentsPath}/${file}`);
 
-      const facepicAttachment = {
-        file_size: stats.size
-      }
+  for (let i = 0; i < files.length; i += 1) {
+    const file = files[i];
 
-      const path = `${facepicAttachmentsPath}/${file}`;
-      if (facepicPathToId[path]) {
-        await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
-        console.log(`=== Resized facepic ===`);
-      }
-    });
-  })
+    await sharp(`${facepicAttachmentsPath}/${file}`)
+      .resize({
+        width: 600,
+        height: 800
+      })
+      .toFile(`${facepicAttachmentsPath}/${file}`);
+
+    const stats = fs.statSync(`${facepicAttachmentsPath}/${file}`);
+
+    const facepicAttachment = {
+      file_size: stats.size
+    }
+
+    const path = `${facepicAttachmentsPath}/${file}`;
+    if (facepicPathToId[path]) {
+      await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
+      console.log(`=== Resized facepic ===`);
+    }
+  }
+
+  // files.forEach(file => {
+  //   console.log("File: " + file);
+  //   console.log("Filepath: " + `${facepicAttachmentsPath}/${file}`);
+  //   im(`${facepicAttachmentsPath}/${file}`).resize(600, 800).write(`${facepicAttachmentsPath}/${file}`, async (err) => {
+  //     console.log("Resized!")
+  //     const stats = fs.statSync(`${facepicAttachmentsPath}/${file}`);
+
+  //     const facepicAttachment = {
+  //       file_size: stats.size
+  //     }
+
+  //     const path = `${facepicAttachmentsPath}/${file}`;
+  //     if (facepicPathToId[path]) {
+  //       await postgreSQL`UPDATE public."facepicAttachment" SET ${postgreSQL(facepicAttachment, 'file_size')} WHERE id=${facepicPathToId[path]};`
+  //       console.log(`=== Resized facepic ===`);
+  //     }
+  //   });
+  // })
 
   importOtherAttachments();
 };
