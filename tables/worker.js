@@ -97,30 +97,30 @@ const importWorkers = () => {
   })
   .on('end', async (rowCount) => {
     // insert all workers
-    totalWorkers.push(workers);
-    const columns = Object.keys(totalWorkers[0][0]);
+    // totalWorkers.push(workers);
+    // const columns = Object.keys(totalWorkers[0][0]);
 
-    for (let i = 0; i < totalWorkers.length; i += 1) {
-      if (totalWorkers[i].length > 0) await postgreSQL`INSERT INTO public.worker ${postgreSQL(totalWorkers[i], columns)}`;
-      console.log(`=== Inserted ${totalWorkers[i].length} workers ===`);
-    }
+    // for (let i = 0; i < totalWorkers.length; i += 1) {
+    //   if (totalWorkers[i].length > 0) await postgreSQL`INSERT INTO public.worker ${postgreSQL(totalWorkers[i], columns)}`;
+    //   console.log(`=== Inserted ${totalWorkers[i].length} workers ===`);
+    // }
 
-    importAttachments();
+    // importAttachments();
 
-    importNicknames();
-    importPassports();
+    // importNicknames();
+    // importPassports();
     importSgPhoneNumbers();
-    importDigitalContacts();
-    importHomeCountryPhoneNumbers();
-    importSgAddresss();
-    importhomeCountryAddresses();
-    importNextOfKins();
-    importFamilyMembers();
-    importSgFriends();
-    importLanguages();
-    importBankAccounts();
+    // importDigitalContacts();
+    // importHomeCountryPhoneNumbers();
+    // importSgAddresss();
+    // importhomeCountryAddresses();
+    // importNextOfKins();
+    // importFamilyMembers();
+    // importSgFriends();
+    // importLanguages();
+    // importBankAccounts();
 
-    importJobs();
+    // importJobs();
   });
 }
 

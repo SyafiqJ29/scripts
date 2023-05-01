@@ -35,7 +35,9 @@ const importSgPhoneNumbers = () => {
             sgPhoneNumber[v1_v2_column_maps['tbl_sgPhoneNumber'][key]] = row[key];
           }
         } else if (key === 'Worker_FIN_number') {
-          sgPhoneNumber.worker_id = workerFINToId[row[key]];
+          let workerFin = row[key];
+          workerFin = workerFin.toUpperCase();
+          sgPhoneNumber.worker_id = workerFINToId[workerFin];
         } else {
           sgPhoneNumber[v1_v2_column_maps['tbl_sgPhoneNumber'][key]] = row[key];
         }
