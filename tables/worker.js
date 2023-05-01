@@ -109,7 +109,7 @@ const importWorkers = () => {
 
     // importNicknames();
     // importPassports();
-    importSgPhoneNumbers();
+    // importSgPhoneNumbers();
     // importDigitalContacts();
     // importHomeCountryPhoneNumbers();
     // importSgAddresss();
@@ -120,7 +120,7 @@ const importWorkers = () => {
     // importLanguages();
     // importBankAccounts();
 
-    // importJobs();
+    importJobs();
   });
 }
 

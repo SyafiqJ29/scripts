@@ -113,22 +113,22 @@ const importProblems = () => {
       console.log(`=== Inserted ${totalProblems[i].length} problems ===`);
     }
 
-    importAggravatingIssues();
-    importLeadCaseWorkers();
-    importAuxiliaryCaseWorkers();
-    importCaseDiscussions();
-    importLawyers();
+    // importAggravatingIssues();
+    // importLeadCaseWorkers();
+    // importAuxiliaryCaseWorkers();
+    // importCaseDiscussions();
+    // importLawyers();
     importSalaryHistorys();
-    importInjurys();
-    importIllnesss();
-    importHospitals();
-    importWicaClaims();
-    importWicaStatuses();
-    importMcStatuses();
-    importOtherProblems();
-    importPoliceReports();
-    importOtherComplaints();
-    importCriminalCaseMilestones();
+    // importInjurys();
+    // importIllnesss();
+    // importHospitals();
+    // importWicaClaims();
+    // importWicaStatuses();
+    // importMcStatuses();
+    // importOtherProblems();
+    // importPoliceReports();
+    // importOtherComplaints();
+    // importCriminalCaseMilestones();
   });
 }
 

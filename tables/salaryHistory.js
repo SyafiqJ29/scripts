@@ -11,7 +11,7 @@ let salaryHistorys = [];
 let rowCounter = 0;
 let salaryHistoryIdCounter = 1;
 const importSalaryHistorys = () => { 
-  parseFile('./exports/tbl_lead_case_worker.csv', {headers: true})
+  parseFile('./exports/tbl_salary_history.csv', {headers: true})
   .on('error', error => console.error(error))
   .on('data', row => {
     const salaryHistory = {};

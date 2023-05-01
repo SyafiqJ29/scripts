@@ -71,42 +71,42 @@ const importJobs = () => {
   })
   .on('end', async (rowCount) => {
     // insert all jobs
-    totalJobs.push(jobs);
+    // totalJobs.push(jobs);
     
-    Object.keys(workerIdToJobs).forEach(key =>  {
-      workerIdToJobs[key] = workerIdToJobs[key].sort();
-    });
+    // Object.keys(workerIdToJobs).forEach(key =>  {
+    //   workerIdToJobs[key] = workerIdToJobs[key].sort();
+    // });
 
-    for (let i = 0; i < totalJobs.length; i += 1) {
-      for (let j = 0; j < totalJobs[i].length; j += 1) {
-        for (let k = 0; k < workerIdToJobs[totalJobs[i][j].worker_id].length; k += 1) {
-          if (totalJobs[i][j].date_record_created === workerIdToJobs[totalJobs[i][j].worker_id][k]) {
-            totalJobs[i][j].job_sequence = k + 1;
-            workerIdToJobs[totalJobs[i][j].worker_id][k] = '';
-            break;
-          }
-        }
-      }
-    }
+    // for (let i = 0; i < totalJobs.length; i += 1) {
+    //   for (let j = 0; j < totalJobs[i].length; j += 1) {
+    //     for (let k = 0; k < workerIdToJobs[totalJobs[i][j].worker_id].length; k += 1) {
+    //       if (totalJobs[i][j].date_record_created === workerIdToJobs[totalJobs[i][j].worker_id][k]) {
+    //         totalJobs[i][j].job_sequence = k + 1;
+    //         workerIdToJobs[totalJobs[i][j].worker_id][k] = '';
+    //         break;
+    //       }
+    //     }
+    //   }
+    // }
 
-    const columns = Object.keys(totalJobs[0][0]);
+    // const columns = Object.keys(totalJobs[0][0]);
 
-    for (let i = 0; i < totalJobs.length; i += 1) {
-      if (totalJobs[i].length > 0) await postgreSQL`INSERT INTO public.job ${postgreSQL(totalJobs[i], columns)}`;
-      console.log(`=== Inserted ${totalJobs[i].length} jobs ===`);
-    }
+    // for (let i = 0; i < totalJobs.length; i += 1) {
+    //   if (totalJobs[i].length > 0) await postgreSQL`INSERT INTO public.job ${postgreSQL(totalJobs[i], columns)}`;
+    //   console.log(`=== Inserted ${totalJobs[i].length} jobs ===`);
+    // }
 
-    importCurrentPasses();
-    importBenefits();
-    importIpaDetails();
-    importVerbalAssurances();
-    importEmploymentContracts();
-    importAgents();
-    importEmployers();
-    importWorkplaces();
-    importWorkHistorys();
-    importAccommodations();
-    importTransferRepats();
+    // importCurrentPasses();
+    // importBenefits();
+    // importIpaDetails();
+    // importVerbalAssurances();
+    // importEmploymentContracts();
+    // importAgents();
+    // importEmployers();
+    // importWorkplaces();
+    // importWorkHistorys();
+    // importAccommodations();
+    // importTransferRepats();
     importProblems();
   });
 }
